@@ -17,17 +17,19 @@ class CertificateController extends Controller
             'issue_date' => 'required|date',
         ]);
 
-        $certificate_number = CertificateIdGenerator::generate($category);
+        $generatedIds = CertificateIdGenerator::generate($category);
 
         $certificate = $category->certificates()->create([
-            'certificate_number' => $certificate_number,
+            'certificate_number' => $generatedIds['certificate_number'],
+            'registration_number' => $generatedIds['registration_number'],
+            'sequence_number' => $generatedIds['sequence_number'],
             'participant_name' => $request->participant_name,
             'participant_email' => $request->participant_email,
             'issue_date' => $request->issue_date,
             'status' => 'active'
         ]);
 
-        return redirect()->route('dashboard.category', $category)->with('success', 'Sertifikat berhasil dibuat dengan ID: ' . $certificate_number);
+        return redirect()->route('dashboard.category', $category)->with('success', 'Sertifikat berhasil dibuat dengan ID: ' . $certificate->certificate_number);
     }
 
     public function destroy(Certificate $certificate)
@@ -37,13 +39,17 @@ class CertificateController extends Controller
         return redirect()->route('dashboard.category', $category)->with('success', 'Sertifikat berhasil dihapus.');
     }
 
-    public function print(Certificate $certificate)
+    public function printFront(Certificate $certificate)
     {
         $category = $certificate->category;
-        // The view will depend on the category code (KPM, KOM, PM)
-        $templateName = strtolower($category->code);
-        
-        // This will load views like certificates.templates.kpm
+        $templateName = strtolower($category->code) . '_front';
+        return view('certificates.templates.' . $templateName, compact('certificate'));
+    }
+
+    public function printBack(Certificate $certificate)
+    {
+        $category = $certificate->category;
+        $templateName = strtolower($category->code) . '_back';
         return view('certificates.templates.' . $templateName, compact('certificate'));
     }
 }

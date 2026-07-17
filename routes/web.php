@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/category/{category}/certificates', [CertificateController::class, 'store'])->name('certificates.store');
     Route::delete('/certificates/{certificate}', [CertificateController::class, 'destroy'])->name('certificates.destroy');
     
-    // Print/Preview Certificate route
-    Route::get('/certificates/{certificate}/print', [CertificateController::class, 'print'])->name('certificates.print');
+    // Print Certificate route
+    Route::get('/certificates/{certificate}/print/front', [CertificateController::class, 'printFront'])->name('certificates.print.front');
+    Route::get('/certificates/{certificate}/print/back', [CertificateController::class, 'printBack'])->name('certificates.print.back');
 });

@@ -12,6 +12,8 @@ class Certificate extends Model
     protected $fillable = [
         'category_id',
         'certificate_number',
+        'sequence_number',
+        'registration_number',
         'participant_name',
         'participant_email',
         'issue_date',

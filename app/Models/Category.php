@@ -9,7 +9,13 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'code', 'description'];
+    protected $fillable = [
+        'name',
+        'code',
+        'template_front_path',
+        'template_back_path',
+        'description',
+    ];
 
     public function certificates()
     {
