@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Sertifikasi - PT LSP Soft Skill</title>
+    <title>Sistem Sertifikasi - LSP Softskill Indonesia Kompeten</title>
+    <meta name="description" content="Sistem Pengelolaan dan Pencetakan Sertifikat BNSP - LSP Softskill Indonesia Kompeten">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
@@ -11,14 +12,19 @@
     <nav class="navbar">
         <div class="container">
             <a href="{{ route('dashboard') }}" class="navbar-brand">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15l8.38-4.19a2 2 0 0 0 1.1-1.61L22 4l-5.19 1.1a2 2 0 0 0-1.61 1.1L11 14.62"/><path d="m14 12-4-4"/><path d="m8 18-5.5 3 2.5-5.5"/></svg>
-                LSP Soft Skill
+                <img src="{{ asset('images/logo-lsp.png') }}" alt="LSP Softskill Indonesia Kompeten" style="height: 52px; object-fit: contain;">
             </a>
-            <div style="display: flex; align-items: center; gap: 1.5rem;">
-                <span style="font-size: 0.9rem; font-weight: 500;">Hi, {{ Auth::user()->name }}</span>
+            <div class="navbar-end">
+                <div class="navbar-user">
+                    <div class="navbar-user-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
+                    <span>{{ Auth::user()->name }}</span>
+                </div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="btn btn-outline" style="padding: 0.4rem 1rem; font-size: 0.8rem;">Logout</button>
+                    <button type="submit" class="btn btn-outline btn-sm">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                        Logout
+                    </button>
                 </form>
             </div>
         </div>
@@ -30,7 +36,40 @@
     </main>
 
     <script>
-        // Simple JS for micro animations or toast notifications could go here
+        // Auto-dismiss toast after 4s
+        document.addEventListener('DOMContentLoaded', function() {
+            const toasts = document.querySelectorAll('.toast');
+            toasts.forEach(t => {
+                setTimeout(() => t.remove(), 4000);
+            });
+        });
+
+        // Single shared modal logic
+        function openEditModal(id, name, certNumber, issueDate) {
+            document.getElementById('edit-participant-name').value = name;
+            document.getElementById('edit-certificate-number').value = certNumber;
+            document.getElementById('edit-issue-date').value = issueDate;
+            document.getElementById('edit-form').action = '/certificates/' + id;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // Close modal on overlay click
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('active');
+            }
+        });
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+            }
+        });
     </script>
 </body>
 </html>

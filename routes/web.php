@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/category/{category}', [DashboardController::class, 'showCategory'])->name('dashboard.category');
     
     Route::post('/category/{category}/certificates', [CertificateController::class, 'store'])->name('certificates.store');
+    Route::put('/certificates/{certificate}', [CertificateController::class, 'update'])->name('certificates.update');
     Route::delete('/certificates/{certificate}', [CertificateController::class, 'destroy'])->name('certificates.destroy');
     
     // Print Certificate route

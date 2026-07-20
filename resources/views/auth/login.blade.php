@@ -2,15 +2,16 @@
 
 @section('content')
 <div class="auth-wrapper">
-    <div class="glass-panel animate-fade-in" style="width: 100%; max-width: 420px; position: relative; z-index: 10;">
+    <div class="auth-card animate-fade-in">
         <div style="text-align: center; margin-bottom: 2rem;">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1rem;"><path d="M12 15l8.38-4.19a2 2 0 0 0 1.1-1.61L22 4l-5.19 1.1a2 2 0 0 0-1.61 1.1L11 14.62"/><path d="m14 12-4-4"/><path d="m8 18-5.5 3 2.5-5.5"/></svg>
-            <h1 style="font-size: 1.75rem; font-weight: 700; color: var(--text-main);">Admin Login</h1>
-            <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.5rem;">Sistem Sertifikasi LSP Soft Skill</p>
+            <img src="{{ asset('images/logo-lsp.png') }}" alt="LSP Softskill Indonesia Kompeten" style="height: 90px; object-fit: contain; margin-bottom: 1.25rem;">
+            <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.02em;">Selamat Datang</h1>
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.375rem;">Masuk ke Sistem Sertifikasi</p>
         </div>
 
         @if($errors->any())
-            <div style="background: #FEE2E2; color: #B91C1C; padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-size: 0.9rem;">
+            <div style="background: #FEF2F2; color: #991B1B; padding: 0.75rem 1rem; border-radius: var(--radius-lg); margin-bottom: 1.25rem; font-size: 0.8125rem; border: 1px solid #FECACA; display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
                 {{ $errors->first() }}
             </div>
         @endif
@@ -18,16 +19,19 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-group">
-                <label for="email" class="form-label">Email Address</label>
+                <label for="email" class="form-label">Alamat Email</label>
                 <input type="email" id="email" name="email" class="form-control" placeholder="admin@lspsoftskill.com" value="{{ old('email') }}" required autofocus>
             </div>
             
             <div class="form-group">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">Kata Sandi</label>
                 <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.85rem;">Sign In to Dashboard</button>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.75rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                Masuk ke Dashboard
+            </button>
         </form>
     </div>
 </div>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <!-- Bird wing (blue) -->
+  <path d="M20 8 C25 2, 38 0, 42 8 L28 28 C24 22, 18 14, 20 8Z" fill="#1B3A7B"/>
+  <path d="M14 18 C8 12, 12 4, 20 8 L28 28 C22 26, 18 24, 14 18Z" fill="#1B3A7B"/>
+  <!-- Head circle (yellow-gold) -->
+  <circle cx="22" cy="26" r="6" fill="#F5C518"/>
+  <!-- Tail feather (yellow) -->  
+  <path d="M18 36 C14 34, 10 40, 16 46 C18 48, 22 44, 20 38 L18 36Z" fill="#F5C518"/>
+  <!-- Wing accent -->
+  <path d="M26 14 C32 8, 40 6, 44 12 L32 26 C30 20, 28 16, 26 14Z" fill="#1B3A7B"/>
+  <!-- Text -->
+  <text x="56" y="22" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#0F172A">LSP Softskill</text>
+  <text x="56" y="38" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#0F172A">Indonesia Kompeten</text>
+</svg>

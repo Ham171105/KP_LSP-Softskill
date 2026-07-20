@@ -17,34 +17,69 @@
         .page {
             width: 210mm;
             height: 297mm;
-            position: relative;
             box-sizing: border-box;
-            page-break-after: always;
-            padding-top: 40mm; /* Adjust to match the pre-printed layout */
-            padding-left: 20mm;
-            padding-right: 20mm;
+            padding: 25mm 20mm 15mm 20mm;
+            overflow: hidden;
         }
         .text-center { text-align: center; }
         .font-bold { font-weight: bold; }
+        .font-italic { font-style: italic; }
         .text-lg { font-size: 14pt; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-6 { margin-top: 1.5rem; }
         .mt-8 { margin-top: 2rem; }
-        .mt-12 { margin-top: 3rem; }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1.5rem;
-            font-size: 11pt;
+            margin-top: 1rem;
+            font-size: 10pt;
             border: 1px solid #000;
         }
         th, td {
             border: 1px solid #000;
-            padding: 8px;
+            padding: 6px 8px;
             vertical-align: top;
         }
         th {
-            background-color: transparent; /* No background color for BNSP */
+            background-color: transparent;
             text-align: center;
+        }
+
+        .atas-nama {
+            text-align: center;
+            font-size: 11pt;
+            margin-top: 1.5rem;
+        }
+
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            font-size: 11pt;
+        }
+        .signature-left {
+            text-align: center;
+            width: 45%;
+        }
+        .signature-right {
+            text-align: center;
+            width: 45%;
+        }
+        .photo-placeholder {
+            width: 30mm;
+            height: 40mm;
+            border: 1px dashed #999;
+            margin: 0 auto 8px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8pt;
+            color: #999;
+        }
+        .signature-space {
+            height: 40mm;
+            margin-bottom: 8px;
         }
 
         .btn-print {
@@ -64,16 +99,9 @@
         @media print {
             .btn-print { display: none; }
             body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            table { border: none !important; }
-            th, td { border: none !important; }
-            /* Hide the table borders since they are likely pre-printed on the back too, or maybe not? 
-               Usually back pages don't have borders pre-printed, but just to be safe let's keep borders unless instructed otherwise. 
-               Wait, BNSP papers usually don't have tables on the back, they print the table. 
-               So borders ARE needed on the back page! Let's revert border hiding. */
-        }
-        @media print {
             table { border: 1px solid #000 !important; }
             th, td { border: 1px solid #000 !important; }
+            .photo-placeholder { border: 1px dashed #ccc !important; }
         }
     </style>
 </head>
@@ -81,52 +109,77 @@
     <button class="btn-print" onclick="window.print()">Cetak Halaman Belakang</button>
 
     <div class="page">
+        <!-- Title -->
         <div class="text-center font-bold text-lg">Daftar Unit Kompetensi</div>
-        <div class="text-center font-bold text-lg font-italic">List of Unit Competencies</div>
-        
+        <div class="text-center font-bold font-italic text-lg">List of Unit Competencies</div>
+
+        <!-- Table -->
         <table>
             <thead>
                 <tr>
-                    <th style="width: 5%">No.</th>
-                    <th style="width: 25%">Kode Unit<br><span style="font-style: italic; font-weight: normal;">Unit Code</span></th>
-                    <th style="width: 70%">Judul Unit<br><span style="font-style: italic; font-weight: normal;">Unit Title</span></th>
+                    <th style="width: 5%">No</th>
+                    <th style="width: 22%">Kode Unit<br><span style="font-style: italic; font-weight: normal;">Unit Code</span></th>
+                    <th style="width: 73%">Judul Unit<br><span style="font-style: italic; font-weight: normal;">Unit Title</span></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-center">1.</td>
-                    <td>P.85SOF00.003.1</td>
+                    <td class="text-center">1</td>
+                    <td>P.85SOF00.001.1</td>
                     <td>
-                        Membangun Integritas sebagai Tenaga Kerja Profesional<br>
-                        <span style="font-style: italic;">Building Integrity as a Professional Worker</span>
+                        Membangun Konsep Diri yang Positif dalam Bekerja<br>
+                        <span style="font-style: italic;">Building a Positive Self-Concept in the Workplace</span>
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center">2.</td>
-                    <td>P.85SOF00.008.1</td>
+                    <td class="text-center">2</td>
+                    <td>P.85SOF00.004.1</td>
                     <td>
-                        Mengembangkan Kemampuan Berinisiatif dalam Bekerja<br>
-                        <span style="font-style: italic;">Developing Initiative in the Workplace</span>
+                        Mengembangkan Kemampuan Berpikir Kritis dalam Memecahkan Masalah dan Mencari Solusi<br>
+                        <span style="font-style: italic;">Developing Critical Thinking Skills for Problem Solving and Solution Finding</span>
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center">3.</td>
+                    <td class="text-center">3</td>
                     <td>P.85SOF00.009.1</td>
                     <td>
-                        Mengembangkan Kemampuan Pemecahan Masalah Secara Kreatif<br>
-                        <span style="font-style: italic;">Developing Creative Problem Solving Skills</span>
+                        Mengembangkan Kemampuan Menghadapi Tantangan di Tempat Kerja<br>
+                        <span style="font-style: italic;">Developing Skills to Overcome Challenges in the Workplace</span>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="mt-8" style="text-align: right; padding-right: 10mm; font-size: 12pt;">
+        <!-- Date -->
+        <div class="mt-8" style="text-align: center; font-size: 11pt;">
             Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->translatedFormat('d F Y') }}
         </div>
-        
-        <div class="mt-12" style="text-align: right; padding-right: 10mm;">
-            <span class="font-bold" style="text-decoration: underline; font-size: 12pt;">Leli N. Winarini, M.Pd</span><br>
-            <span style="font-size: 12pt;">(Manajer Sertifikasi / Certification Manager)</span>
+
+        <!-- Atas Nama Section -->
+        <div class="atas-nama">
+            Atas Nama Badan Nasional Sertifikasi Profesi<br>
+            <span class="font-italic">On Behalf of Indonesia Professional Certification Authority</span>
+        </div>
+
+        <div class="atas-nama" style="margin-top: 0.5rem;">
+            <span class="font-bold">Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten</span><br>
+            <span class="font-italic">Competent Indonesian Softskill Professional Certification Body</span>
+        </div>
+
+        <!-- Dual Signature Section -->
+        <div class="signature-section">
+            <div class="signature-left">
+                <div class="photo-placeholder">Foto 3x4</div>
+                <span class="font-bold" style="text-decoration: underline; text-transform: uppercase;">{{ $certificate->participant_name }}</span><br>
+                Tanda tangan pemilik<br>
+                <span class="font-italic">(Signature of holder)</span>
+            </div>
+            <div class="signature-right">
+                <div class="signature-space"></div>
+                <span class="font-bold" style="text-decoration: underline;">Leli N. Winarini, M.Pd</span><br>
+                Manajer Sertifikasi<br>
+                <span class="font-italic">(Certification Manager)</span>
+            </div>
         </div>
     </div>
 </body>

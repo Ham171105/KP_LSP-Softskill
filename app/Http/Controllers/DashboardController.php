@@ -14,9 +14,20 @@ class DashboardController extends Controller
         return view('dashboard.index', compact('categories'));
     }
 
-    public function showCategory(Category $category)
+    public function showCategory(Request $request, Category $category)
     {
-        $certificates = $category->certificates()->latest()->get();
-        return view('dashboard.category', compact('category', 'certificates'));
+        $search = $request->input('search');
+        
+        $certificates = $category->certificates()
+            ->when($search, function ($query, $search) {
+                return $query->where('participant_name', 'like', "%{$search}%")
+                             ->orWhere('certificate_number', 'like', "%{$search}%")
+                             ->orWhere('registration_number', 'like', "%{$search}%");
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(25)
+            ->appends(['search' => $search]);
+            
+        return view('dashboard.category', compact('category', 'certificates', 'search'));
     }
 }

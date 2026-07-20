@@ -7,15 +7,16 @@ use App\Models\Certificate;
 
 class CertificateIdGenerator
 {
-    public static function generate(Category $category)
+    public static function generate(Category $category, string $issueDate = null)
     {
-        $year = date('Y');
+        // Gunakan tahun dari issue_date jika ada, jika tidak gunakan tahun sekarang
+        $year = $issueDate ? date('Y', strtotime($issueDate)) : date('Y');
         $schemaCode = $category->schema_code ?? '0000'; // Fallback if missing
         
-        // Find the last certificate in the same year for ALL categories,
-        // or just the same category? The user's numbers (0000012, 0000055) 
-        // seem like a global sequence for the LSP. Let's make it global for the year.
-        $lastCertificate = Certificate::whereYear('issue_date', $year)
+        // Urutan nomor terpisah per kategori per tahun
+        // Setiap kategori (KPM, KOM, PM) punya urutan sendiri-sendiri
+        $lastCertificate = Certificate::where('category_id', $category->id)
+            ->whereYear('issue_date', $year)
             ->orderBy('sequence_number', 'desc')
             ->first();
 
