@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cetak Belakang - Kepemimpinan</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-icon.png') }}">
     <style>
         @page {
             size: A4 portrait;
@@ -13,6 +14,7 @@
             padding: 0;
             font-family: Arial, sans-serif;
             background: #fff;
+            color: #000;
         }
         .page {
             width: 210mm;
@@ -25,16 +27,27 @@
         .font-bold { font-weight: bold; }
         .font-italic { font-style: italic; }
         .text-lg { font-size: 14pt; }
-        .mt-4 { margin-top: 1rem; }
-        .mt-6 { margin-top: 1.5rem; }
-        .mt-8 { margin-top: 2rem; }
+        
+        .header-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14pt;
+            color: #555;
+        }
+        .header-subtitle {
+            text-align: center;
+            font-style: italic;
+            font-size: 14pt;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
             font-size: 10pt;
             border: 1px solid #000;
+            color: #000;
         }
         th, td {
             border: 1px solid #000;
@@ -46,40 +59,48 @@
             text-align: center;
         }
 
-        .atas-nama {
-            text-align: center;
+        .footer-section {
+            margin-top: 2rem;
+            color: #555;
             font-size: 11pt;
-            margin-top: 1.5rem;
         }
 
-        .signature-section {
+        .footer-text-right {
+            text-align: right;
+        }
+
+        .signature-container {
             display: flex;
             justify-content: space-between;
-            margin-top: 1.5rem;
-            font-size: 11pt;
+            align-items: flex-end;
+            margin-top: 2rem;
         }
+
         .signature-left {
-            text-align: center;
-            width: 45%;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-end;
         }
-        .signature-right {
-            text-align: center;
-            width: 45%;
-        }
-        .photo-placeholder {
+
+        .photo-box {
             width: 30mm;
             height: 40mm;
-            border: 1px dashed #999;
-            margin: 0 auto 8px auto;
+            border: 1px solid #000;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 8pt;
-            color: #999;
+            font-size: 9pt;
+            color: #000;
         }
-        .signature-space {
-            height: 40mm;
-            margin-bottom: 8px;
+
+        .holder-signature {
+            text-align: center;
+        }
+
+        .manager-signature {
+            text-align: center;
+            padding-bottom: 2mm;
         }
 
         .btn-print {
@@ -101,7 +122,7 @@
             body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             table { border: 1px solid #000 !important; }
             th, td { border: 1px solid #000 !important; }
-            .photo-placeholder { border: 1px dashed #ccc !important; }
+            .photo-box { border: 1px solid #000 !important; }
         }
     </style>
 </head>
@@ -110,22 +131,22 @@
 
     <div class="page">
         <!-- Title -->
-        <div class="text-center font-bold text-lg">Daftar Unit Kompetensi</div>
-        <div class="text-center font-bold font-italic text-lg">List of Unit Competencies</div>
+        <div class="header-title">Daftar Unit Kompetensi</div>
+        <div class="header-subtitle">List of Unit (s) of competency</div>
 
         <!-- Table -->
         <table>
             <thead>
                 <tr>
-                    <th style="width: 5%">No</th>
-                    <th style="width: 22%">Kode Unit<br><span style="font-style: italic; font-weight: normal;">Unit Code</span></th>
-                    <th style="width: 73%">Judul Unit<br><span style="font-style: italic; font-weight: normal;">Unit Title</span></th>
+                    <th style="width: 5%"><span class="font-bold">No</span></th>
+                    <th style="width: 22%"><span class="font-bold">Kode Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Code</span></th>
+                    <th style="width: 73%"><span class="font-bold">Judul Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Title</span></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="text-center">1</td>
-                    <td>P.85SOF00.003.1</td>
+                    <td class="text-center">P.85SOF00.003.1</td>
                     <td>
                         Membangun Integritas sebagai Tenaga Kerja Profesional<br>
                         <span style="font-style: italic;">Building Integrity as a Professional Worker</span>
@@ -133,7 +154,7 @@
                 </tr>
                 <tr>
                     <td class="text-center">2</td>
-                    <td>P.85SOF00.008.1</td>
+                    <td class="text-center">P.85SOF00.008.1</td>
                     <td>
                         Mengembangkan Kemampuan Berinisiatif dalam Bekerja<br>
                         <span style="font-style: italic;">Developing Initiative in the Workplace</span>
@@ -141,7 +162,7 @@
                 </tr>
                 <tr>
                     <td class="text-center">3</td>
-                    <td>P.85SOF00.009.1</td>
+                    <td class="text-center">P.85SOF00.009.1</td>
                     <td>
                         Mengembangkan Kemampuan Menghadapi Tantangan di Tempat Kerja<br>
                         <span style="font-style: italic;">Developing Skills to Overcome Challenges in the Workplace</span>
@@ -149,7 +170,7 @@
                 </tr>
                 <tr>
                     <td class="text-center">4</td>
-                    <td>P.85SOF00.019.1</td>
+                    <td class="text-center">P.85SOF00.019.1</td>
                     <td>
                         Mengembangkan Kemampuan Bekerja Sama dalam Tim<br>
                         <span style="font-style: italic;">Developing Team Collaboration Skills</span>
@@ -157,7 +178,7 @@
                 </tr>
                 <tr>
                     <td class="text-center">5</td>
-                    <td>P.85SOF00.020.1</td>
+                    <td class="text-center">P.85SOF00.020.1</td>
                     <td>
                         Mengembangkan Kemampuan Dasar dalam Memimpin Kelompok Kecil<br>
                         <span style="font-style: italic;">Developing Foundational Skills in Leading Small Groups</span>
@@ -166,35 +187,37 @@
             </tbody>
         </table>
 
-        <!-- Date -->
-        <div class="mt-8" style="text-align: center; font-size: 11pt;">
-            Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->translatedFormat('d F Y') }}
-        </div>
-
-        <!-- Atas Nama Section -->
-        <div class="atas-nama">
-            Atas Nama Badan Nasional Sertifikasi Profesi<br>
-            <span class="font-italic">On Behalf of Indonesia Professional Certification Authority</span>
-        </div>
-
-        <div class="atas-nama" style="margin-top: 0.5rem;">
-            <span class="font-bold">Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten</span><br>
-            <span class="font-italic">Competent Indonesian Softskill Professional Certification Body</span>
-        </div>
-
-        <!-- Dual Signature Section -->
-        <div class="signature-section">
-            <div class="signature-left">
-                <div class="photo-placeholder">Foto 3x4</div>
-                <span class="font-bold" style="text-decoration: underline; text-transform: uppercase;">{{ $certificate->participant_name }}</span><br>
-                Tanda tangan pemilik<br>
-                <span class="font-italic">(Signature of holder)</span>
+        <!-- Footer Section -->
+        <div class="footer-section">
+            <div class="footer-text-right">
+                <div>Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->translatedFormat('d F Y') }}</div>
+                <div style="margin-top: 0.5rem;">Atas Nama Badan Nasional Sertifikasi Profesi</div>
+                <div class="font-italic">On Behalf of Indonesia Professional Certification Authority</div>
+                <div class="font-bold" style="margin-top: 0.25rem;">Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten</div>
+                <div class="font-italic">Competent Indonesian Softskill Professional Certification Body</div>
             </div>
-            <div class="signature-right">
-                <div class="signature-space"></div>
-                <span class="font-bold" style="text-decoration: underline;">Leli N. Winarini, M.Pd</span><br>
-                Manajer Sertifikasi<br>
-                <span class="font-italic">(Certification Manager)</span>
+
+            <!-- Signatures -->
+            <div class="signature-container">
+                <!-- Left: Foto and Holder Signature -->
+                <div class="signature-left">
+                    <div class="photo-box">
+                        <span>FOTO</span>
+                        <span style="margin-top: 0.5rem;">3X4</span>
+                    </div>
+                    <div class="holder-signature">
+                        <div class="font-bold" style="text-decoration: underline; text-transform: uppercase;">{{ $certificate->participant_name }}</div>
+                        <div>Tanda tangan pemilik</div>
+                        <div class="font-italic">(Signature of holder)</div>
+                    </div>
+                </div>
+
+                <!-- Right: Manager Signature -->
+                <div class="manager-signature">
+                    <div class="font-bold">DRA. CRIANA MARDEWI, M.M.</div>
+                    <div>Manajer Sertifikasi</div>
+                    <div class="font-italic">(Certification Manager)</div>
+                </div>
             </div>
         </div>
     </div>

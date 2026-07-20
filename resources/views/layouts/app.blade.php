@@ -6,6 +6,7 @@
     <title>Sistem Sertifikasi - LSP Softskill Indonesia Kompeten</title>
     <meta name="description" content="Sistem Pengelolaan dan Pencetakan Sertifikat BNSP - LSP Softskill Indonesia Kompeten">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-icon.png') }}">
 </head>
 <body>
     @auth

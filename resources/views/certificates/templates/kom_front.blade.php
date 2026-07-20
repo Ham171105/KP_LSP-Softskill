@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cetak Depan - Komunikasi</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-icon.png') }}">
     <style>
         @page {
             size: A4 portrait;

@@ -46,7 +46,7 @@
                 @csrf
                 <div class="form-group">
                     <label class="form-label">Nama Peserta</label>
-                    <input type="text" name="participant_name" class="form-control" required placeholder="Cth: Budi Santoso" value="{{ old('participant_name') }}">
+                    <input type="text" name="participant_name" class="form-control" required placeholder="Cth: Ilham huda" value="{{ old('participant_name') }}">
                 </div>
 
                 <div class="form-group">
