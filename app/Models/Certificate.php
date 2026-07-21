@@ -13,6 +13,7 @@ class Certificate extends Model
         'category_id',
         'certificate_number',
         'sequence_number',
+        'global_sequence_number',
         'registration_number',
         'participant_name',
         'participant_email',

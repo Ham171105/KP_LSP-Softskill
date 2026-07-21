@@ -22,6 +22,7 @@ class CertificateController extends Controller
             'certificate_number' => $generatedIds['certificate_number'],
             'registration_number' => $generatedIds['registration_number'],
             'sequence_number' => $generatedIds['sequence_number'],
+            'global_sequence_number' => $generatedIds['global_sequence_number'],
             'participant_name' => $request->participant_name,
             'issue_date' => $request->issue_date,
             'status' => 'active'

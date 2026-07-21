@@ -20,38 +20,39 @@
             width: 210mm;
             height: 297mm;
             box-sizing: border-box;
-            padding: 25mm 20mm 15mm 20mm;
+            padding: 35mm 20mm 25mm 20mm;
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
         }
         .text-center { text-align: center; }
         .font-bold { font-weight: bold; }
         .font-italic { font-style: italic; }
-        .text-lg { font-size: 14pt; }
         
         .header-title {
             text-align: center;
             font-weight: bold;
             font-size: 14pt;
-            color: #555;
+            color: #777; /* Exact gray match */
         }
         .header-subtitle {
             text-align: center;
             font-style: italic;
             font-size: 14pt;
-            color: #555;
-            margin-bottom: 1.5rem;
+            color: #777;
+            margin-bottom: 2rem;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 10pt;
+            font-size: 11pt; /* Match target size */
             border: 1px solid #000;
             color: #000;
         }
         th, td {
             border: 1px solid #000;
-            padding: 6px 8px;
+            padding: 8px 5px; /* Reduced horizontal padding to allow text to fit */
             vertical-align: top;
         }
         th {
@@ -59,27 +60,38 @@
             text-align: center;
         }
 
+        /* 
+           FOOTER LAYOUT
+           Uses absolute positioning for the right text block so it doesn't wrap
+           and allows perfect vertical overlap with the FOTO box.
+        */
         .footer-section {
-            margin-top: 2rem;
-            color: #555;
+            margin-top: auto;
+            color: #777; /* Match gray color */
             font-size: 11pt;
+            position: relative;
+            margin-bottom: 20mm;
         }
 
         .footer-text-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 75%; /* Plenty of space to prevent wrapping */
             text-align: right;
+            line-height: 1.3;
         }
 
         .signature-container {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 2rem;
+            margin-top: 80px; /* Aligns FOTO box with 'Lembaga Sertifikasi...' */
         }
 
         .signature-left {
             display: flex;
-            gap: 1.5rem;
             align-items: flex-end;
+            gap: 1.5rem;
         }
 
         .photo-box {
@@ -90,17 +102,24 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 9pt;
+            font-size: 10pt;
             color: #000;
+            margin-bottom: 35px; /* Pushes the box up relative to flex-end */
         }
 
         .holder-signature {
             text-align: center;
+            line-height: 1.2;
+            width: 50mm; /* Restrict width to allow wrapping */
         }
 
         .manager-signature {
             text-align: center;
-            padding-bottom: 2mm;
+            line-height: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Aligns this block to bottom */
+            white-space: nowrap;
         }
 
         .btn-print {
@@ -139,8 +158,8 @@
             <thead>
                 <tr>
                     <th style="width: 5%"><span class="font-bold">No</span></th>
-                    <th style="width: 22%"><span class="font-bold">Kode Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Code</span></th>
-                    <th style="width: 73%"><span class="font-bold">Judul Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Title</span></th>
+                    <th style="width: 20%"><span class="font-bold">Kode Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Code</span></th>
+                    <th style="width: 75%"><span class="font-bold">Judul Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Title</span></th>
                 </tr>
             </thead>
             <tbody>
@@ -189,15 +208,16 @@
 
         <!-- Footer Section -->
         <div class="footer-section">
+            <!-- Absolutely positioned text block -->
             <div class="footer-text-right">
-                <div>Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->translatedFormat('d F Y') }}</div>
-                <div style="margin-top: 0.5rem;">Atas Nama Badan Nasional Sertifikasi Profesi</div>
+                <div style="margin-bottom: 0.5rem;">Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->translatedFormat('d F Y') }}</div>
+                <div>Atas Nama Badan Nasional Sertifikasi Profesi</div>
                 <div class="font-italic">On Behalf of Indonesia Professional Certification Authority</div>
-                <div class="font-bold" style="margin-top: 0.25rem;">Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten</div>
+                <div class="font-bold">Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten</div>
                 <div class="font-italic">Competent Indonesian Softskill Professional Certification Body</div>
             </div>
 
-            <!-- Signatures -->
+            <!-- Signatures container -->
             <div class="signature-container">
                 <!-- Left: Foto and Holder Signature -->
                 <div class="signature-left">
@@ -207,16 +227,16 @@
                     </div>
                     <div class="holder-signature">
                         <div class="font-bold" style="text-decoration: underline; text-transform: uppercase;">{{ $certificate->participant_name }}</div>
-                        <div>Tanda tangan pemilik</div>
-                        <div class="font-italic">(Signature of holder)</div>
+                        <div style="color: #777;">Tanda tangan pemilik</div>
+                        <div class="font-italic" style="color: #777;">(Signature of holder)</div>
                     </div>
                 </div>
 
                 <!-- Right: Manager Signature -->
                 <div class="manager-signature">
-                    <div class="font-bold">DRA. CRIANA MARDEWI, M.M.</div>
-                    <div>Manajer Sertifikasi</div>
-                    <div class="font-italic">(Certification Manager)</div>
+                    <div class="font-bold" style="color: #777;">DRA. CRIANA MARDEWI, M.M.</div>
+                    <div style="color: #777;">Manajer Sertifikasi</div>
+                    <div class="font-italic" style="color: #777;">(Certification Manager)</div>
                 </div>
             </div>
         </div>
