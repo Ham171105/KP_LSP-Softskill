@@ -21,9 +21,13 @@
             width: 210mm;
             height: 297mm;
             box-sizing: border-box;
-            padding: 100mm 20mm 15mm 20mm; /* Match exact 10cm gap from physical paper */
+            padding: 80mm 20mm 15mm 20mm; /* Adjust top padding to bring text higher */
             text-align: center;
             overflow: hidden;
+            background-image: url('{{ asset('images/bg_depan.png') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         .text-11 { font-size: 11pt; }
         .text-12 { font-size: 12pt; }
@@ -60,52 +64,52 @@
     <button class="btn-print" onclick="window.print()">Cetak Halaman Depan</button>
 
     <div class="page text-11">
-        <div class="font-bold mb-8pt">No. {{ $certificate->certificate_number }}</div>
+        <div class="font-bold" style="margin-bottom: 3mm;">No. {{ $certificate->certificate_number }}</div>
 
-        <div class="mb-8pt">
+        <div style="margin-bottom: 8mm;">
             Dengan ini menyatakan bahwa,<br>
             <span class="font-italic">This is to certify that,</span>
         </div>
 
-        <div>
+        <div style="margin-bottom: 8mm;">
             <div class="font-bold text-14" style="text-transform: uppercase;">
                 {{ $certificate->participant_name }}
             </div>
-            <div class="font-bold mb-8pt">
+            <div class="font-bold" style="margin-top: 1mm;">
                 No. Reg. {{ $certificate->registration_number }}
             </div>
         </div>
 
-        <div class="mb-8pt">
+        <div style="margin-bottom: 4mm;">
             Telah kompeten pada bidang :<br>
             <span class="font-italic">Is competent in the area of :</span>
         </div>
 
-        <div class="mb-8pt">
+        <div style="margin-bottom: 4mm;">
             <div class="font-bold text-12">Keterampilan Non-Teknis</div>
             <div class="font-bold font-italic text-12">Soft Skills</div>
         </div>
 
-        <div class="mb-8pt">
+        <div style="margin-bottom: 4mm;">
             Dengan kualifikasi / Kompetensi :<br>
             <span class="font-italic">With the Qualification / Competency :</span>
         </div>
 
-        <div class="mb-25pt">
+        <div style="margin-bottom: 8mm;">
             <div class="font-bold text-12">Pengembangan Komunikasi Yang Efektif</div>
             <div class="font-bold font-italic text-12">Effective Communication Development</div>
         </div>
 
-        <div class="mb-13pt">
+        <div style="margin-bottom: 15mm;">
             Sertifikat berlaku untuk : 3 (tiga) tahun<br>
             <span class="font-italic">This certificate is valid for : 3 (three) years</span>
         </div>
 
-        <div class="mb-13pt">
+        <div style="margin-bottom: 3mm;">
             Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->translatedFormat('d F Y') }}
         </div>
 
-        <div class="mb-71pt">
+        <div style="margin-bottom: 18mm; line-height: 1.3;">
             Atas Nama Badan Nasional Sertifikasi Profesi<br>
             <span class="font-italic">On Behalf of Indonesia Professional Certification Authority</span><br>
             Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten<br>

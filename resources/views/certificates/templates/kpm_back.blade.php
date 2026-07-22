@@ -24,6 +24,10 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background-image: url('{{ asset('images/bg_belakang.png') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         .text-center { text-align: center; }
         .font-bold { font-weight: bold; }
@@ -90,8 +94,9 @@
 
         .signature-left {
             display: flex;
-            align-items: flex-end;
-            gap: 1.5rem;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .photo-box {
@@ -104,7 +109,6 @@
             justify-content: center;
             font-size: 10pt;
             color: #000;
-            margin-bottom: 35px; /* Pushes the box up relative to flex-end */
         }
 
         .holder-signature {

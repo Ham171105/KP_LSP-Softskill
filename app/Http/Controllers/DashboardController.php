@@ -20,8 +20,11 @@ class DashboardController extends Controller
         $year = $request->input('year');
         
         // Ambil daftar tahun unik dari sertifikat di kategori ini
+        $driver = \Illuminate\Support\Facades\DB::connection()->getDriverName();
+        $selectRaw = $driver === 'sqlite' ? "strftime('%Y', issue_date) as year" : "YEAR(issue_date) as year";
+        
         $years = $category->certificates()
-            ->selectRaw('YEAR(issue_date) as year')
+            ->selectRaw($selectRaw)
             ->distinct()
             ->orderBy('year', 'desc')
             ->pluck('year');
