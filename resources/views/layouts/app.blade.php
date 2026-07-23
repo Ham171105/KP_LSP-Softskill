@@ -46,10 +46,17 @@
         });
 
         // Single shared modal logic
-        function openEditModal(id, name, certNumber, issueDate) {
+        function openEditModal(id, name, certNumber, issueDate, gender, blanko) {
             document.getElementById('edit-participant-name').value = name;
             document.getElementById('edit-certificate-number').value = certNumber;
             document.getElementById('edit-issue-date').value = issueDate;
+            
+            let genderInput = document.getElementById('edit-gender');
+            if (genderInput) genderInput.value = gender || '';
+            
+            let blankoInput = document.getElementById('edit-blanko-number');
+            if (blankoInput) blankoInput.value = blanko || '';
+
             document.getElementById('edit-form').action = '/certificates/' + id;
             document.getElementById('editModal').classList.add('active');
         }

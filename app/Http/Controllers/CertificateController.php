@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Certificate;
 use App\Services\CertificateIdGenerator;
+use App\Exports\CertificatesExport;
+use App\Imports\CertificatesImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CertificateController extends Controller
 {
@@ -14,6 +17,8 @@ class CertificateController extends Controller
         $request->validate([
             'participant_name' => 'required|string|max:255',
             'issue_date' => 'required|date',
+            'blanko_number' => 'nullable|string|max:255',
+            'gender' => 'nullable|in:L,P',
         ]);
 
         $generatedIds = CertificateIdGenerator::generate($category, $request->issue_date);
@@ -24,6 +29,8 @@ class CertificateController extends Controller
             'sequence_number' => $generatedIds['sequence_number'],
             'global_sequence_number' => $generatedIds['global_sequence_number'],
             'participant_name' => $request->participant_name,
+            'blanko_number' => $request->blanko_number,
+            'gender' => $request->gender,
             'issue_date' => $request->issue_date,
             'status' => 'active'
         ]);
@@ -37,11 +44,15 @@ class CertificateController extends Controller
             'participant_name' => 'required|string|max:255',
             'certificate_number' => 'required|string|max:255',
             'issue_date' => 'required|date',
+            'blanko_number' => 'nullable|string|max:255',
+            'gender' => 'nullable|in:L,P',
         ]);
 
         $certificate->update([
             'participant_name' => $request->participant_name,
             'certificate_number' => $request->certificate_number,
+            'blanko_number' => $request->blanko_number,
+            'gender' => $request->gender,
             'issue_date' => $request->issue_date,
         ]);
 
@@ -53,6 +64,33 @@ class CertificateController extends Controller
         $category = $certificate->category;
         $certificate->delete();
         return redirect()->route('dashboard.category', $category)->with('success', 'Sertifikat berhasil dihapus.');
+    }
+
+    public function export(Request $request, Category $category)
+    {
+        $year = $request->input('year');
+        $filename = "Sertifikat_{$category->code}_" . ($year ? "{$year}_" : "") . date('Ymd_His') . ".xlsx";
+        return Excel::download(new CertificatesExport($category, $year), $filename);
+    }
+
+    public function import(Request $request, Category $category)
+    {
+        $file = $request->file('excel_file');
+        if ($file && !$file->isValid()) {
+            $errorMessage = $file->getErrorMessage();
+            return redirect()->back()->with('error', "Upload Gagal (Sistem): " . $errorMessage);
+        }
+
+        $request->validate([
+            'excel_file' => 'required|file'
+        ]);
+
+        try {
+            Excel::import(new CertificatesImport($category), $request->file('excel_file'));
+            return redirect()->back()->with('success', "Berhasil mengimpor sertifikat baru.");
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', "Gagal mengimpor file: " . $e->getMessage());
+        }
     }
 
     public function printFront(Certificate $certificate)

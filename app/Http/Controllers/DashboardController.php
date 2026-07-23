@@ -34,7 +34,8 @@ class DashboardController extends Controller
                 return $query->where(function($q) use ($search) {
                     $q->where('participant_name', 'like', "%{$search}%")
                       ->orWhere('certificate_number', 'like', "%{$search}%")
-                      ->orWhere('registration_number', 'like', "%{$search}%");
+                      ->orWhere('registration_number', 'like', "%{$search}%")
+                      ->orWhere('blanko_number', 'like', "%{$search}%");
                 });
             })
             ->when($year, function ($query, $year) {
@@ -44,6 +45,6 @@ class DashboardController extends Controller
             ->paginate(25)
             ->appends(['search' => $search, 'year' => $year]);
             
-        return view('dashboard.category', compact('category', 'certificates', 'search', 'years'));
+        return view('dashboard.category', compact('category', 'certificates', 'search', 'years', 'year'));
     }
 }

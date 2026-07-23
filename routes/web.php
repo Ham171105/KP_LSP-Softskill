@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/certificates/{certificate}', [CertificateController::class, 'update'])->name('certificates.update');
     Route::delete('/certificates/{certificate}', [CertificateController::class, 'destroy'])->name('certificates.destroy');
     
+    Route::get('/category/{category}/export', [CertificateController::class, 'export'])->name('certificates.export');
+    Route::post('/category/{category}/import', [CertificateController::class, 'import'])->name('certificates.import');
+    
     // Print Certificate route
     Route::get('/certificates/{certificate}/print/front', [CertificateController::class, 'printFront'])->name('certificates.print.front');
     Route::get('/certificates/{certificate}/print/back', [CertificateController::class, 'printBack'])->name('certificates.print.back');

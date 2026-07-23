@@ -50,6 +50,20 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label">Jenis Kelamin</label>
+                    <select name="gender" class="form-control">
+                        <option value="">Pilih (Opsional)</option>
+                        <option value="L" {{ old('gender') == 'L' ? 'selected' : '' }}>L (Laki-laki)</option>
+                        <option value="P" {{ old('gender') == 'P' ? 'selected' : '' }}>P (Perempuan)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Nomor Blanko</label>
+                    <input type="text" name="blanko_number" class="form-control" placeholder="Opsional" value="{{ old('blanko_number') }}">
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">Tanggal Terbit</label>
                     <input type="date" name="issue_date" class="form-control" value="{{ old('issue_date', date('Y-m-d')) }}" required>
                 </div>
@@ -93,30 +107,48 @@
 
     {{-- Table --}}
     <div class="table-wrapper" style="margin-bottom: 3rem;">
-        <div class="table-header">
+        <div class="table-header" style="flex-wrap: wrap; gap: 1rem;">
             <div class="table-title">
                 Daftar Sertifikat
                 <span class="badge badge-success">{{ $certificates->total() }} Total</span>
             </div>
             
-            <form method="GET" action="{{ route('dashboard.category', $category) }}" class="search-bar" style="display: flex; gap: 0.5rem; align-items: center;">
-                @if(isset($years) && count($years) > 0)
-                <select name="year" class="form-control" style="width: auto; min-width: 130px; padding: 0.375rem 0.75rem; border-radius: var(--radius-md);" onchange="this.form.submit()">
-                    <option value="">Semua Tahun</option>
-                    @foreach($years as $y)
-                        <option value="{{ $y }}" {{ request('year') == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
-                    @endforeach
-                </select>
-                @endif
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama atau nomor..." class="form-control">
-                <button type="submit" class="btn btn-primary btn-sm">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    Cari
-                </button>
-                @if(request('search') || request('year'))
-                    <a href="{{ route('dashboard.category', $category) }}" class="btn btn-outline btn-sm">Reset</a>
-                @endif
-            </form>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; justify-content: flex-end; flex: 1;">
+                <form method="GET" action="{{ route('dashboard.category', $category) }}" style="display: flex; gap: 0.5rem; align-items: center; background: var(--surface); padding: 0.375rem 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border); max-width: 400px; flex: 1;">
+                    @if(isset($years) && count($years) > 0)
+                    <div style="position: relative;">
+                        <select name="year" class="form-control" style="appearance: none; padding-right: 1.5rem; border: none; background: var(--background); font-size: 0.8125rem; font-weight: 500; cursor: pointer; color: var(--text); padding-top: 0.25rem; padding-bottom: 0.25rem; min-height: unset; height: auto;" onchange="this.form.submit()">
+                            <option value="">Semua Tahun</option>
+                            @foreach($years as $y)
+                                <option value="{{ $y }}" {{ request('year') == $y ? 'selected' : '' }}>{{ $y }}</option>
+                            @endforeach
+                        </select>
+                        <svg style="position: absolute; right: 0.25rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-muted);" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                    <div style="width: 1px; height: 1.25rem; background: var(--border);"></div>
+                    @endif
+                    <div style="flex: 1; position: relative;">
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari data..." class="form-control" style="width: 100%; border: none; background: transparent; padding: 0.25rem 0.5rem; font-size: 0.8125rem; box-shadow: none; min-height: unset; height: auto;">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </button>
+                    @if(request('search') || request('year'))
+                        <a href="{{ route('dashboard.category', $category) }}" class="btn btn-outline btn-sm" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Reset</a>
+                    @endif
+                </form>
+
+                <div style="display: flex; gap: 0.5rem;">
+                    <button type="button" onclick="document.getElementById('importModal').style.display='flex'" class="btn btn-outline btn-sm">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                        Import
+                    </button>
+                    <a href="{{ route('certificates.export', ['category' => $category->id, 'year' => request('year')]) }}" class="btn btn-outline btn-sm">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5-5 5 5M12 15V3"/></svg>
+                        Export
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div style="overflow-x: auto;">
@@ -124,6 +156,7 @@
                 <thead>
                     <tr>
                         <th>No. Sertifikat BNSP</th>
+                        <th>No. Blanko</th>
                         <th>Nama Peserta</th>
                         <th>Tgl Terbit</th>
                         <th style="text-align: right;">Aksi</th>
@@ -136,6 +169,13 @@
                             <span style="font-weight: 600; color: var(--primary); font-family: monospace; font-size: 0.8125rem; letter-spacing: 0.02em;">
                                 {{ $certificate->certificate_number }}
                             </span>
+                        </td>
+                        <td>
+                            @if($certificate->blanko_number)
+                                <span class="badge badge-success" style="font-family: monospace; font-size: 0.75rem;">{{ $certificate->blanko_number }}</span>
+                            @else
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">-</span>
+                            @endif
                         </td>
                         <td>
                             <div style="font-weight: 500;">{{ $certificate->participant_name }}</div>
@@ -156,7 +196,7 @@
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
                                     Belakang
                                 </a>
-                                <button type="button" onclick="openEditModal('{{ $certificate->id }}', '{{ addslashes($certificate->participant_name) }}', '{{ $certificate->certificate_number }}', '{{ \Carbon\Carbon::parse($certificate->issue_date)->format('Y-m-d') }}')" class="action-btn edit" title="Edit">
+                                <button type="button" onclick="openEditModal('{{ $certificate->id }}', '{{ addslashes($certificate->participant_name) }}', '{{ $certificate->certificate_number }}', '{{ \Carbon\Carbon::parse($certificate->issue_date)->format('Y-m-d') }}', '{{ $certificate->gender }}', '{{ $certificate->blanko_number }}')" class="action-btn edit" title="Edit">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                                 </button>
                                 <form method="POST" action="{{ route('certificates.destroy', $certificate) }}" onsubmit="return confirm('Yakin ingin menghapus sertifikat ini?');" style="display:inline;">
@@ -236,6 +276,18 @@
                 <input type="text" id="edit-certificate-number" name="certificate_number" class="form-control" required style="font-family: monospace;">
             </div>
             <div class="form-group">
+                <label class="form-label">Jenis Kelamin</label>
+                <select id="edit-gender" name="gender" class="form-control">
+                    <option value="">Pilih (Opsional)</option>
+                    <option value="L">L (Laki-laki)</option>
+                    <option value="P">P (Perempuan)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Nomor Blanko</label>
+                <input type="text" id="edit-blanko-number" name="blanko_number" class="form-control" placeholder="Opsional">
+            </div>
+            <div class="form-group">
                 <label class="form-label">Tanggal Terbit</label>
                 <input type="date" id="edit-issue-date" name="issue_date" class="form-control" required>
             </div>
@@ -250,4 +302,32 @@
     </div>
 </div>
 
+{{-- IMPORT MODAL --}}
+<div id="importModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Import Excel</h3>
+            <button type="button" onclick="document.getElementById('importModal').style.display='none'" class="btn-ghost btn-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <form method="POST" action="{{ route('certificates.import', $category) }}" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label class="form-label">Pilih File Excel (.xlsx)</label>
+                <input type="file" name="excel_file" class="form-control" accept=".xlsx, .xls" required style="padding: 10px;">
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
+                    Format kolom harus sesuai: No, NAMA ASESI, JENIS KELAMIN (L/P), NOMOR BLANKO, NO. REG. SOF, SKEMA, TANGGAL ASESMEN
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="document.getElementById('importModal').style.display='none'" class="btn btn-outline">Batal</button>
+                <button type="submit" class="btn btn-primary">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                    Import Data
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 @endsection

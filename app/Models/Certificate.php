@@ -15,7 +15,9 @@ class Certificate extends Model
         'sequence_number',
         'global_sequence_number',
         'registration_number',
+        'blanko_number',
         'participant_name',
+        'gender',
         'participant_email',
         'issue_date',
         'status'
