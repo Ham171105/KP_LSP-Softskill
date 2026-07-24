@@ -45,6 +45,13 @@ class DashboardController extends Controller
             ->paginate(25)
             ->appends(['search' => $search, 'year' => $year]);
             
-        return view('dashboard.category', compact('category', 'certificates', 'search', 'years', 'year'));
+        // Cari blanko_number terakhir secara global (karena blangko biasanya fisik berurutan lintas kategori)
+        $lastCertificate = \App\Models\Certificate::whereNotNull('blanko_number')->orderBy('id', 'desc')->first();
+        $nextBlankoNumber = '';
+        if ($lastCertificate && is_numeric($lastCertificate->blanko_number)) {
+            $nextBlankoNumber = (string)($lastCertificate->blanko_number + 1);
+        }
+            
+        return view('dashboard.category', compact('category', 'certificates', 'search', 'years', 'year', 'nextBlankoNumber'));
     }
 }

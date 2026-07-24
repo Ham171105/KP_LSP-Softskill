@@ -16,6 +16,10 @@
                 <img src="{{ asset('images/logo-lsp.png') }}" alt="LSP Softskill Indonesia Kompeten" style="height: 52px; object-fit: contain;">
             </a>
             <div class="navbar-end">
+                <a href="{{ route('tutorial') }}" class="btn btn-outline btn-sm" style="margin-right: 1rem; display: flex; align-items: center; gap: 0.35rem; color: var(--primary); border-color: rgba(99, 102, 241, 0.3); background: var(--primary-light);">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    Panduan Sistem
+                </a>
                 <div class="navbar-user">
                     <div class="navbar-user-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
                     <span>{{ Auth::user()->name }}</span>
@@ -49,6 +53,7 @@
         function openEditModal(id, name, certNumber, issueDate, gender, blanko) {
             document.getElementById('edit-participant-name').value = name;
             document.getElementById('edit-certificate-number').value = certNumber;
+            document.getElementById('edit-blanko-number').value = blanko;
             document.getElementById('edit-issue-date').value = issueDate;
             
             let genderInput = document.getElementById('edit-gender');

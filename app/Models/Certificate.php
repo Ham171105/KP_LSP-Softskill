@@ -20,6 +20,7 @@ class Certificate extends Model
         'gender',
         'participant_email',
         'issue_date',
+        'blanko_number',
         'status'
     ];
 

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container animate-fade-in">
-    <div class="dashboard-header">
+    <div class="dashboard-header" style="margin-bottom: 2rem;">
         <h1 class="dashboard-title">Dashboard Sertifikasi</h1>
         <p class="dashboard-subtitle">Pilih bidang sertifikasi untuk mengelola dan mencetak sertifikat peserta.</p>
     </div>

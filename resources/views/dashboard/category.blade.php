@@ -17,13 +17,14 @@
     @endif
 
     {{-- Header --}}
-    <div class="dashboard-header">
-        <a href="{{ route('dashboard') }}" class="back-link">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Kembali ke Dashboard
+    <div class="dashboard-header" style="display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 2rem;">
+        <a href="{{ route('dashboard') }}" class="btn btn-ghost" style="background: var(--surface); border: 1px solid var(--border); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm); color: var(--text-main); flex-shrink: 0; padding: 0; transition: all var(--transition);" onmouseover="this.style.transform='translateX(-3px)'; this.style.borderColor='var(--primary)'; this.style.color='var(--primary)';" onmouseout="this.style.transform='none'; this.style.borderColor='var(--border)'; this.style.color='var(--text-main)';">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         </a>
-        <h1 class="dashboard-title">Sertifikasi {{ $category->name }}</h1>
-        <p class="dashboard-subtitle">Kelola dan cetak sertifikat untuk skema ini.</p>
+        <div>
+            <h1 class="dashboard-title" style="margin-bottom: 0.375rem; line-height: 1.2;">Sertifikasi {{ $category->name }}</h1>
+            <p class="dashboard-subtitle" style="margin-top: 0;">Kelola dan cetak sertifikat untuk skema ini.</p>
+        </div>
     </div>
 
     {{-- Top Grid: Form + Info --}}
@@ -60,7 +61,7 @@
 
                 <div class="form-group">
                     <label class="form-label">Nomor Blanko</label>
-                    <input type="text" name="blanko_number" class="form-control" placeholder="Opsional" value="{{ old('blanko_number') }}">
+                    <input type="text" name="blanko_number" class="form-control" placeholder="Opsional (Otomatis: {{ $nextBlankoNumber ?? '' }})" value="{{ old('blanko_number', $nextBlankoNumber ?? '') }}">
                 </div>
 
                 <div class="form-group">
@@ -76,31 +77,43 @@
         </div>
 
         {{-- Info Panel --}}
-        <div class="glass-panel" style="display: flex; flex-direction: column; gap: 1.25rem;">
-            <div>
-                <div class="section-label">Panduan</div>
-                <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.75rem;">Informasi Cetak Sertifikat</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0.75rem;">
-                    Sistem ini dikonfigurasi untuk mencetak sertifikat langsung di atas <strong style="color: var(--text-secondary);">Kertas Blangko BNSP</strong>.
+        <div class="glass-panel" style="display: flex; flex-direction: column; position: relative; overflow: hidden; padding: 1.75rem;">
+            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, var(--primary), #818CF8);"></div>
+            
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+                <div style="width: 36px; height: 36px; border-radius: var(--radius-md); background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                </div>
+                <div>
+                    <div class="section-label" style="margin-bottom: 0.125rem;">Panduan Singkat</div>
+                    <h3 style="font-size: 1.125rem; font-weight: 700; color: var(--text-main); margin: 0;">Informasi Cetak Sertifikat</h3>
+                </div>
+            </div>
+
+            <div style="background: var(--surface-hover); border-radius: var(--radius-lg); padding: 1rem; border: 1px solid var(--border); margin-bottom: 1.25rem;">
+                <p style="font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">
+                    Sistem otomatis menyesuaikan cetakan untuk <strong>Kertas Blangko BNSP</strong> asli.
                 </p>
             </div>
-            <ul style="font-size: 0.8125rem; color: var(--text-muted); padding-left: 0; line-height: 1.8; list-style: none;">
-                <li style="display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
-                    <span style="color: var(--primary); font-weight: 700;">①</span>
-                    Penomoran BNSP & No. Registrasi <strong style="color: var(--text-secondary);">otomatis berurutan</strong> sesuai skema {{ $category->name }}.
+
+            <ul style="font-size: 0.8125rem; color: var(--text-secondary); padding-left: 0; line-height: 1.6; list-style: none; display: flex; flex-direction: column; gap: 0.875rem; margin-bottom: 1.5rem;">
+                <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                    <div style="background: var(--primary-light); color: var(--primary); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0;">1</div>
+                    <span>Penomoran BNSP & No. Registrasi <strong>otomatis berurutan</strong> sesuai skema {{ $category->name }}.</span>
                 </li>
-                <li style="display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
-                    <span style="color: var(--primary); font-weight: 700;">②</span>
-                    Klik <strong style="color: var(--text-secondary);">Cetak Depan</strong> untuk sisi identitas peserta.
+                <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                    <div style="background: var(--primary-light); color: var(--primary); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0;">2</div>
+                    <span>Klik <span class="badge badge-primary" style="padding: 0.15rem 0.4rem;">Cetak Depan</span> untuk sisi identitas peserta.</span>
                 </li>
-                <li style="display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
-                    <span style="color: var(--primary); font-weight: 700;">③</span>
-                    Klik <strong style="color: var(--text-secondary);">Cetak Belakang</strong> untuk sisi tabel unit kompetensi.
+                <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                    <div style="background: var(--primary-light); color: var(--primary); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0;">3</div>
+                    <span>Klik <span class="badge badge-primary" style="padding: 0.15rem 0.4rem;">Cetak Belakang</span> untuk sisi tabel unit kompetensi.</span>
                 </li>
             </ul>
-            <div class="info-box info">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="info-icon"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                <span>Saat jendela Print muncul, pastikan <strong>Scale = 100%</strong> dan matikan <strong>Headers & Footers</strong> agar presisi dengan kertas fisik.</span>
+
+            <div class="info-box info" style="margin-top: auto; align-items: center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="info-icon" style="margin-top: 0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <span style="font-size: 0.75rem;">Saat jendela Print (Ctrl+P) muncul, pastikan <strong>Scale = 100%</strong> dan matikan <strong>Headers & Footers</strong>.</span>
             </div>
         </div>
     </div>
@@ -143,7 +156,7 @@
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
                         Import
                     </button>
-                    <a href="{{ route('certificates.export', ['category' => $category->id, 'year' => request('year')]) }}" class="btn btn-outline btn-sm">
+                    <a href="{{ route('certificates.export', array_merge(['category' => $category->id], request()->query())) }}" class="btn btn-outline btn-sm">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5-5 5 5M12 15V3"/></svg>
                         Export
                     </a>
@@ -285,7 +298,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Nomor Blanko</label>
-                <input type="text" id="edit-blanko-number" name="blanko_number" class="form-control" placeholder="Opsional">
+                <input type="text" id="edit-blanko-number" name="blanko_number" class="form-control" placeholder="Opsional" style="font-family: monospace;">
             </div>
             <div class="form-group">
                 <label class="form-label">Tanggal Terbit</label>

@@ -106,4 +106,5 @@ class CertificateController extends Controller
         $templateName = strtolower($category->code) . '_back';
         return view('certificates.templates.' . $templateName, compact('certificate'));
     }
+
 }
