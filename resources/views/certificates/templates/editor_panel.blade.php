@@ -169,7 +169,9 @@
     let isDragging = false;
     let activeDragElement = null;
     let startY = 0;
+    let startX = 0;
     let initialTop = 0;
+    let initialLeft = 0;
     
     // Last saved state to ensure print always uses confirmed settings
     let serverSavedState = {};
@@ -192,8 +194,11 @@
         const state = {};
         elements.forEach(el => {
             const id = el.id;
+            // If left is not set via style, we assume center (105mm for 210mm width)
+            let leftVal = el.style.left ? parseMM(el.style.left) : 105;
             state[id] = {
                 y: parseMM(el.style.top || window.getComputedStyle(el).top),
+                x: leftVal,
                 fontSize: parsePT(el.style.fontSize || window.getComputedStyle(el).fontSize)
             };
         });
@@ -212,17 +217,24 @@
             const el = document.getElementById(id);
             if (el) {
                 el.style.top = data.y + 'mm';
+                el.style.left = data.x + 'mm';
                 el.style.fontSize = data.fontSize + 'pt';
                 
                 // Update UI controls if panel is open
                 const yInput = document.getElementById(`y_${id}`);
                 const yRange = document.getElementById(`range_y_${id}`);
+                const xInput = document.getElementById(`x_${id}`);
+                const xRange = document.getElementById(`range_x_${id}`);
                 const sizeInput = document.getElementById(`size_${id}`);
                 const sizeRange = document.getElementById(`range_size_${id}`);
                 
                 if (yInput) {
                     yInput.value = data.y;
                     yRange.value = data.y;
+                }
+                if (xInput) {
+                    xInput.value = data.x;
+                    xRange.value = data.x;
                 }
                 if (sizeInput) {
                     sizeInput.value = data.fontSize;
@@ -266,23 +278,33 @@
             // Get initial values from inline style or computed style
             // Note: window.getComputedStyle returns pixels, so we do a rough conversion for initialization if no inline style
             let currentY = el.style.top ? parseMM(el.style.top) : (parseFloat(window.getComputedStyle(el).top) * 0.264583).toFixed(1);
+            let currentX = el.style.left ? parseMM(el.style.left) : 105; // 105mm is center
             let currentSize = el.style.fontSize ? parsePT(el.style.fontSize) : parsePT(window.getComputedStyle(el).fontSize);
             
             // Simpan status awal sebagai status yang ada di server
             serverSavedState[id] = {
                 y: currentY,
+                x: currentX,
                 fontSize: currentSize
             };
 
             const controlHTML = `
                 <div class="control-group" id="group_${id}">
                     <label>${label}</label>
-                    <div style="font-size: 11px; margin-bottom: 4px; color: #64748b;">Posisi Y (mm)</div>
+                    <div style="font-size: 11px; margin-bottom: 4px; color: #64748b;">Posisi Y (Naik/Turun)</div>
                     <div class="slider-container">
                         <input type="range" id="range_y_${id}" min="0" max="297" step="0.5" value="${currentY}" 
                                oninput="updateValue('${id}', 'y', this.value)">
                         <input type="number" id="y_${id}" value="${currentY}" step="0.5" 
                                onchange="updateValue('${id}', 'y', this.value)">
+                    </div>
+                    
+                    <div style="font-size: 11px; margin-bottom: 4px; color: #64748b; margin-top: 10px;">Posisi X (Kiri/Kanan)</div>
+                    <div class="slider-container">
+                        <input type="range" id="range_x_${id}" min="0" max="210" step="0.5" value="${currentX}" 
+                               oninput="updateValue('${id}', 'x', this.value)">
+                        <input type="number" id="x_${id}" value="${currentX}" step="0.5" 
+                               onchange="updateValue('${id}', 'x', this.value)">
                     </div>
                     
                     <div style="font-size: 11px; margin-bottom: 4px; color: #64748b; margin-top: 10px;">Ukuran Font (pt)</div>
@@ -313,6 +335,10 @@
             document.getElementById(`y_${id}`).value = value;
             document.getElementById(`range_y_${id}`).value = value;
             el.style.top = `${value}mm`;
+        } else if (type === 'x') {
+            document.getElementById(`x_${id}`).value = value;
+            document.getElementById(`range_x_${id}`).value = value;
+            el.style.left = `${value}mm`;
         } else if (type === 'size') {
             document.getElementById(`size_${id}`).value = value;
             document.getElementById(`range_size_${id}`).value = value;
@@ -348,7 +374,9 @@
         }
 
         startY = e.clientY;
+        startX = e.clientX;
         initialTop = parseMM(el.style.top || window.getComputedStyle(el).top);
+        initialLeft = el.style.left ? parseMM(el.style.left) : 105;
         
         document.addEventListener('mousemove', drag);
         document.addEventListener('mouseup', stopDrag);
@@ -358,19 +386,27 @@
         if (!isDragging || !activeDragElement) return;
         
         const deltaY = e.clientY - startY;
+        const deltaX = e.clientX - startX;
         // 1 pixel is roughly 0.264583 mm
-        const deltaMM = deltaY * 0.264583;
+        const deltaYMM = deltaY * 0.264583;
+        const deltaXMM = deltaX * 0.264583;
         
-        const newTop = (initialTop + deltaMM).toFixed(1);
+        const newTop = (initialTop + deltaYMM).toFixed(1);
+        const newLeft = (initialLeft + deltaXMM).toFixed(1);
         
         // Update DOM
         activeDragElement.style.top = `${newTop}mm`;
+        activeDragElement.style.left = `${newLeft}mm`;
         
         // Update UI Controls if panel is open
         const id = activeDragElement.id;
         if(document.getElementById(`y_${id}`)) {
             document.getElementById(`y_${id}`).value = newTop;
             document.getElementById(`range_y_${id}`).value = newTop;
+        }
+        if(document.getElementById(`x_${id}`)) {
+            document.getElementById(`x_${id}`).value = newLeft;
+            document.getElementById(`range_x_${id}`).value = newLeft;
         }
     }
 
@@ -408,6 +444,7 @@
             const id = el.id;
             settings[id] = {
                 y: document.getElementById(`y_${id}`).value + 'mm',
+                x: document.getElementById(`x_${id}`).value + 'mm',
                 fontSize: document.getElementById(`size_${id}`).value + 'pt'
             };
         });

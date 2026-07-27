@@ -102,14 +102,18 @@ class CertificateController extends Controller
         
         $cleanSettings = [];
         $fontSettings = [];
+        $xSettings = [];
         foreach($settings as $setting) {
             $cleanSettings[$setting->element] = str_replace('mm', '', $setting->y_position);
             if ($setting->font_size) {
                 $fontSettings[$setting->element] = str_replace('pt', '', $setting->font_size);
             }
+            if ($setting->x_position) {
+                $xSettings[$setting->element] = str_replace('mm', '', $setting->x_position);
+            }
         }
 
-        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings'));
+        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings', 'xSettings'));
     }
 
     public function printBack(Certificate $certificate)
@@ -121,14 +125,18 @@ class CertificateController extends Controller
         
         $cleanSettings = [];
         $fontSettings = [];
+        $xSettings = [];
         foreach($settings as $setting) {
             $cleanSettings[$setting->element] = str_replace('mm', '', $setting->y_position);
             if ($setting->font_size) {
                 $fontSettings[$setting->element] = str_replace('pt', '', $setting->font_size);
             }
+            if ($setting->x_position) {
+                $xSettings[$setting->element] = str_replace('mm', '', $setting->x_position);
+            }
         }
 
-        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings'));
+        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings', 'xSettings'));
     }
 
 }

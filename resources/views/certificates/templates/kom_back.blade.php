@@ -19,6 +19,7 @@
             justify-content: center;
         }
         .page {
+            position: relative;
             width: 210mm;
             height: 297mm;
             box-sizing: border-box;
@@ -162,6 +163,12 @@
             th, td { border: 1px solid #000 !important; }
             .photo-box { border: 1px solid #000 !important; }
         }
+    
+        .abs-text {
+            position: absolute;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -169,13 +176,13 @@
 
     <div class="page">
         <!-- Title -->
-        <div id="back_header" data-label="Judul Daftar Unit" class="editable-element" style="position: relative; top: {{ $cleanSettings['back_header'] ?? '0' }}mm; font-size: {{ $fontSettings['back_header'] ?? '14' }}pt;">
+        <div id="back_header" data-label="Judul Daftar Unit" class="editable-element" style="left: {{ $xSettings['back_header'] ?? '105' }}mm; position: relative; top: {{ $cleanSettings['back_header'] ?? '0' }}mm; font-size: {{ $fontSettings['back_header'] ?? '14' }}pt;">
             <div class="header-title" style="font-size: inherit;">Daftar Unit Kompetensi</div>
             <div class="header-subtitle" style="font-size: inherit;">List of Unit (s) of competency</div>
         </div>
 
         <!-- Table -->
-        <div id="back_table" data-label="Tabel Kompetensi" class="editable-element" style="position: relative; top: {{ $cleanSettings['back_table'] ?? '0' }}mm; font-size: {{ $fontSettings['back_table'] ?? '11' }}pt;">
+        <div id="back_table" data-label="Tabel Kompetensi" class="editable-element" style="left: {{ $xSettings['back_table'] ?? '105' }}mm; position: relative; top: {{ $cleanSettings['back_table'] ?? '0' }}mm; font-size: {{ $fontSettings['back_table'] ?? '11' }}pt;">
             <table style="font-size: inherit;">
             <thead>
                 <tr>
@@ -229,40 +236,34 @@
             </table>
         </div>
 
-        <!-- Footer Section -->
-        <div id="back_footer" data-label="Bagian Bawah (Ttd & Tgl)" class="footer-section editable-element" style="position: relative; top: {{ $cleanSettings['back_footer'] ?? '0' }}mm; font-size: {{ $fontSettings['back_footer'] ?? '11' }}pt;">
-            <!-- Absolutely positioned text block -->
-            <div class="footer-text-right">
-                <div style="margin-bottom: 0.5rem;">Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->translatedFormat('d F Y') }}</div>
-                <div>Atas Nama Badan Nasional Sertifikasi Profesi</div>
-                <div class="font-italic">On Behalf of Indonesia Professional Certification Authority</div>
-                <div class="font-bold">Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten</div>
-                <div class="font-italic">Competent Indonesian Softskill Professional Certification Body</div>
-            </div>
+                                <!-- Footer Section Elements (Separated) -->
+        <div id="back_date_text" data-label="Teks Tgl & Instansi" class="abs-text editable-element" style="left: {{ $xSettings['back_date_text'] ?? '145' }}mm; top: {{ $cleanSettings['back_date_text'] ?? '175' }}mm; font-size: {{ $fontSettings['back_date_text'] ?? '11' }}pt; text-align: right; width: 120mm;">
+            <div style="margin-bottom: 0.5rem;">Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->translatedFormat('d F Y') }}</div>
+            <div>Atas Nama Badan Nasional Sertifikasi Profesi</div>
+            <div class="font-italic">On Behalf of Indonesia Professional Certification Authority</div>
+            <div class="font-bold">Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten</div>
+            <div class="font-italic">Competent Indonesian Softskill Professional Certification Body</div>
+        </div>
 
-            <!-- Signatures container -->
-            <div class="signature-container">
-                <!-- Left: Foto and Holder Signature -->
-                <div class="signature-left">
-                    <div class="photo-box">
-                        <span>FOTO</span>
-                        <span style="margin-top: 0.5rem;">3X4</span>
-                    </div>
-                    <div class="holder-signature">
-                        <div class="font-bold" style="text-decoration: underline; text-transform: uppercase;">{{ $certificate->participant_name }}</div>
-                        <div style="color: #777;">Tanda tangan pemilik</div>
-                        <div class="font-italic" style="color: #777;">(Signature of holder)</div>
-                    </div>
-                </div>
-
-                <!-- Right: Manager Signature -->
-                <div class="manager-signature">
-                    <div class="font-bold" style="color: #777;">DRA. CRIANA MARDEWI, M.M.</div>
-                    <div style="color: #777;">Manajer Sertifikasi</div>
-                    <div class="font-italic" style="color: #777;">(Certification Manager)</div>
-                </div>
+        <div id="back_photo" data-label="Kotak Foto 3x4" class="abs-text editable-element" style="left: {{ $xSettings['back_photo'] ?? '35' }}mm; top: {{ $cleanSettings['back_photo'] ?? '205' }}mm; font-size: {{ $fontSettings['back_photo'] ?? '11' }}pt;">
+            <div class="photo-box">
+                <span>FOTO</span>
+                <span style="margin-top: 0.5rem;">3X4</span>
             </div>
         </div>
+
+        <div id="back_holder_signature" data-label="Tanda Tangan Pemilik" class="abs-text editable-element" style="left: {{ $xSettings['back_holder_signature'] ?? '35' }}mm; top: {{ $cleanSettings['back_holder_signature'] ?? '250' }}mm; font-size: {{ $fontSettings['back_holder_signature'] ?? '11' }}pt; text-align: center;">
+            <div class="font-bold" style="text-decoration: underline; text-transform: uppercase; font-size: inherit;">{{ $certificate->participant_name }}</div>
+            <div style="color: #000; font-size: inherit;">Tanda tangan pemilik</div>
+            <div class="font-italic" style="color: #000; font-size: inherit;">(Signature of holder)</div>
+        </div>
+
+        <div id="back_manager_signature" data-label="Tanda Tangan Manajer" class="abs-text editable-element" style="left: {{ $xSettings['back_manager_signature'] ?? '160' }}mm; top: {{ $cleanSettings['back_manager_signature'] ?? '250' }}mm; font-size: {{ $fontSettings['back_manager_signature'] ?? '11' }}pt; text-align: center;">
+            <div class="font-bold" style="color: #000; font-size: inherit;">DRA. CRIANA MARDEWI, M.M.</div>
+            <div style="color: #000; font-size: inherit;">Manajer Sertifikasi</div>
+            <div class="font-italic" style="color: #000; font-size: inherit;">(Certification Manager)</div>
+        </div>
+    </div>
     </div>
     
     @include('certificates.templates.editor_panel')

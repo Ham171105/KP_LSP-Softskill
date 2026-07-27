@@ -86,61 +86,61 @@
 
     <div class="page text-11">
         
-        <div id="no_bnsp" data-label="Nomor Sertifikat (BNSP)" class="abs-text font-bold editable-element" style="top: {{ $cleanSettings['no_bnsp'] ?? '75' }}mm; font-size: {{ $fontSettings['no_bnsp'] ?? '11' }}pt;">
+        <div id="no_bnsp" data-label="Nomor Sertifikat (BNSP)" class="abs-text font-bold editable-element" style="left: {{ $xSettings['no_bnsp'] ?? '105' }}mm; top: {{ $cleanSettings['no_bnsp'] ?? '75' }}mm; font-size: {{ $fontSettings['no_bnsp'] ?? '11' }}pt;">
             No. {{ $certificate->certificate_number }}
         </div>
 
-        <div id="text_certify" data-label="Teks 'Dengan ini menyatakan bahwa'" class="abs-text editable-element" style="top: {{ $cleanSettings['text_certify'] ?? '88' }}mm; font-size: {{ $fontSettings['text_certify'] ?? '11' }}pt;">
+        <div id="text_certify" data-label="Teks 'Dengan ini menyatakan bahwa'" class="abs-text editable-element" style="left: {{ $xSettings['text_certify'] ?? '105' }}mm; top: {{ $cleanSettings['text_certify'] ?? '88' }}mm; font-size: {{ $fontSettings['text_certify'] ?? '11' }}pt;">
             Dengan ini menyatakan bahwa,<br>
             <span class="font-italic">This is to certify that,</span>
         </div>
 
-        <div id="participant_name" data-label="Nama Peserta & No. Reg" class="abs-text editable-element" style="top: {{ $cleanSettings['participant_name'] ?? '105' }}mm;">
-            <div class="font-bold" style="text-transform: uppercase; font-size: {{ $fontSettings['participant_name'] ?? '14' }}pt;">
+        <div id="participant_name" data-label="Nama Peserta & No. Reg" class="abs-text editable-element" style="left: {{ $xSettings['participant_name'] ?? '105' }}mm; top: {{ $cleanSettings['participant_name'] ?? '105' }}mm; font-size: {{ $fontSettings['participant_name'] ?? '14' }}pt;">
+            <div class="font-bold" style="text-transform: uppercase; font-size: 1em;">
                 {{ $certificate->participant_name }}
             </div>
-            <div class="font-bold" style="margin-top: 2mm; font-size: {{ $fontSettings['participant_name'] ?? '11' }}pt;">
+            <div class="font-bold" style="margin-top: 2mm; font-size: 0.8em;">
                 No. Reg. {{ $certificate->registration_number }}
             </div>
         </div>
 
-        <div id="text_competent" data-label="Teks 'Telah kompeten pada bidang'" class="abs-text editable-element" style="top: {{ $cleanSettings['text_competent'] ?? '125' }}mm; font-size: {{ $fontSettings['text_competent'] ?? '11' }}pt;">
+        <div id="text_competent" data-label="Teks 'Telah kompeten pada bidang'" class="abs-text editable-element" style="left: {{ $xSettings['text_competent'] ?? '105' }}mm; top: {{ $cleanSettings['text_competent'] ?? '125' }}mm; font-size: {{ $fontSettings['text_competent'] ?? '11' }}pt;">
             Telah kompeten pada bidang :<br>
             <span class="font-italic">Is competent in the area of :</span>
         </div>
 
-        <div id="area_title" data-label="Judul Bidang (Soft Skills)" class="abs-text editable-element" style="top: {{ $cleanSettings['area_title'] ?? '140' }}mm; font-size: {{ $fontSettings['area_title'] ?? '12' }}pt;">
+        <div id="area_title" data-label="Judul Bidang (Soft Skills)" class="abs-text editable-element" style="left: {{ $xSettings['area_title'] ?? '105' }}mm; top: {{ $cleanSettings['area_title'] ?? '140' }}mm; font-size: {{ $fontSettings['area_title'] ?? '12' }}pt;">
             <div class="font-bold">Keterampilan Non-Teknis</div>
             <div class="font-bold font-italic">Soft Skills</div>
         </div>
 
-        <div id="text_qualification" data-label="Teks 'Dengan kualifikasi / Kompetensi'" class="abs-text editable-element" style="top: {{ $cleanSettings['text_qualification'] ?? '155' }}mm; font-size: {{ $fontSettings['text_qualification'] ?? '11' }}pt;">
+        <div id="text_qualification" data-label="Teks 'Dengan kualifikasi / Kompetensi'" class="abs-text editable-element" style="left: {{ $xSettings['text_qualification'] ?? '105' }}mm; top: {{ $cleanSettings['text_qualification'] ?? '155' }}mm; font-size: {{ $fontSettings['text_qualification'] ?? '11' }}pt;">
             Dengan kualifikasi / Kompetensi :<br>
             <span class="font-italic">With the Qualification / Competency :</span>
         </div>
 
-        <div id="competency_title" data-label="Judul Kompetensi (Komunikasi)" class="abs-text editable-element" style="top: {{ $cleanSettings['competency_title'] ?? '170' }}mm; font-size: {{ $fontSettings['competency_title'] ?? '12' }}pt;">
+        <div id="competency_title" data-label="Judul Kompetensi (Komunikasi)" class="abs-text editable-element" style="left: {{ $xSettings['competency_title'] ?? '105' }}mm; top: {{ $cleanSettings['competency_title'] ?? '170' }}mm; font-size: {{ $fontSettings['competency_title'] ?? '12' }}pt;">
             <div class="font-bold">Komunikasi</div>
             <div class="font-bold font-italic">Communication</div>
         </div>
 
-        <div id="validity" data-label="Masa Berlaku" class="abs-text editable-element" style="top: {{ $cleanSettings['validity'] ?? '195' }}mm; font-size: {{ $fontSettings['validity'] ?? '11' }}pt;">
+        <div id="validity" data-label="Masa Berlaku" class="abs-text editable-element" style="left: {{ $xSettings['validity'] ?? '105' }}mm; top: {{ $cleanSettings['validity'] ?? '195' }}mm; font-size: {{ $fontSettings['validity'] ?? '11' }}pt;">
             Sertifikat berlaku untuk : 3 (tiga) tahun<br>
             <span class="font-italic">This certificate is valid for : 3 (three) years</span>
         </div>
 
-        <div id="issue_date" data-label="Tempat, Tanggal Terbit" class="abs-text editable-element" style="top: {{ $cleanSettings['issue_date'] ?? '220' }}mm; font-size: {{ $fontSettings['issue_date'] ?? '11' }}pt;">
+        <div id="issue_date" data-label="Tempat, Tanggal Terbit" class="abs-text editable-element" style="left: {{ $xSettings['issue_date'] ?? '105' }}mm; top: {{ $cleanSettings['issue_date'] ?? '220' }}mm; font-size: {{ $fontSettings['issue_date'] ?? '11' }}pt;">
             Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->translatedFormat('d F Y') }}
         </div>
 
-        <div id="signature_text" data-label="Teks Tanda Tangan" class="abs-text editable-element" style="top: {{ $cleanSettings['signature_text'] ?? '230' }}mm; line-height: 1.3; font-size: {{ $fontSettings['signature_text'] ?? '11' }}pt;">
+        <div id="signature_text" data-label="Teks Tanda Tangan" class="abs-text editable-element" style="left: {{ $xSettings['signature_text'] ?? '105' }}mm; top: {{ $cleanSettings['signature_text'] ?? '230' }}mm; line-height: 1.3; font-size: {{ $fontSettings['signature_text'] ?? '11' }}pt;">
             Atas Nama Badan Nasional Sertifikasi Profesi<br>
             <span class="font-italic">On Behalf of Indonesia Professional Certification Authority</span><br>
             Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten<br>
             <span class="font-italic">Competent Indonesian Softskill Professional Certification Body</span>
         </div>
 
-        <div id="signature_name" data-label="Nama Penandatangan" class="abs-text editable-element" style="top: {{ $cleanSettings['signature_name'] ?? '265' }}mm; font-size: {{ $fontSettings['signature_name'] ?? '12' }}pt;">
+        <div id="signature_name" data-label="Nama Penandatangan" class="abs-text editable-element" style="left: {{ $xSettings['signature_name'] ?? '105' }}mm; top: {{ $cleanSettings['signature_name'] ?? '265' }}mm; font-size: {{ $fontSettings['signature_name'] ?? '12' }}pt;">
             <span class="font-bold" style="text-decoration: underline;">Puji Dwi Antono, S.Pi., M.SE</span><br>
             <span>(Direktur/ Director)</span>
         </div>

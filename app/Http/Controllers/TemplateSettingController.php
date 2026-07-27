@@ -12,17 +12,22 @@ class TemplateSettingController extends Controller
     {
         $settings = $request->input('settings', []);
         
-        foreach ($settings as $element => $data) {
-            TemplateSetting::updateOrCreate(
-                [
-                    'category_id' => $category->id,
-                    'element' => $element
-                ],
-                [
-                    'y_position' => $data['y'] ?? null,
-                    'font_size' => $data['fontSize'] ?? null
-                ]
-            );
+        $allCategories = \App\Models\Category::all();
+
+        foreach ($request->settings as $elementId => $data) {
+            foreach ($allCategories as $cat) {
+                TemplateSetting::updateOrCreate(
+                    [
+                        'category_id' => $cat->id,
+                        'element' => $elementId
+                    ],
+                    [
+                        'x_position' => $data['x'] ?? null,
+                        'y_position' => $data['y'] ?? null,
+                        'font_size' => $data['fontSize'] ?? null
+                    ]
+                );
+            }
         }
 
         return response()->json(['success' => true]);

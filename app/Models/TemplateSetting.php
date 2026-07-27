@@ -12,6 +12,7 @@ class TemplateSetting extends Model
     protected $fillable = [
         'category_id',
         'element',
+        'x_position',
         'y_position',
         'font_size'
     ];
