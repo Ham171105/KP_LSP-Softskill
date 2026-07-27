@@ -103,6 +103,7 @@ class CertificateController extends Controller
         $cleanSettings = [];
         $fontSettings = [];
         $xSettings = [];
+        $customTextSettings = [];
         foreach($settings as $setting) {
             $cleanSettings[$setting->element] = str_replace('mm', '', $setting->y_position);
             if ($setting->font_size) {
@@ -111,9 +112,12 @@ class CertificateController extends Controller
             if ($setting->x_position) {
                 $xSettings[$setting->element] = str_replace('mm', '', $setting->x_position);
             }
+            if ($setting->custom_text !== null) {
+                $customTextSettings[$setting->element] = $setting->custom_text;
+            }
         }
 
-        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings', 'xSettings'));
+        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings', 'xSettings', 'customTextSettings', 'settings'));
     }
 
     public function printBack(Certificate $certificate)
@@ -126,6 +130,7 @@ class CertificateController extends Controller
         $cleanSettings = [];
         $fontSettings = [];
         $xSettings = [];
+        $customTextSettings = [];
         foreach($settings as $setting) {
             $cleanSettings[$setting->element] = str_replace('mm', '', $setting->y_position);
             if ($setting->font_size) {
@@ -134,9 +139,12 @@ class CertificateController extends Controller
             if ($setting->x_position) {
                 $xSettings[$setting->element] = str_replace('mm', '', $setting->x_position);
             }
+            if ($setting->custom_text !== null) {
+                $customTextSettings[$setting->element] = $setting->custom_text;
+            }
         }
 
-        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings', 'xSettings'));
+        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings', 'xSettings', 'customTextSettings', 'settings'));
     }
 
 }

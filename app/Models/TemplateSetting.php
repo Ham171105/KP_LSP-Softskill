@@ -14,7 +14,8 @@ class TemplateSetting extends Model
         'element',
         'x_position',
         'y_position',
-        'font_size'
+        'font_size',
+        'custom_text'
     ];
 
     public function category()
