@@ -97,14 +97,38 @@ class CertificateController extends Controller
     {
         $category = $certificate->category;
         $templateName = strtolower($category->code) . '_front';
-        return view('certificates.templates.' . $templateName, compact('certificate'));
+        
+        $settings = \App\Models\TemplateSetting::where('category_id', $category->id)->get();
+        
+        $cleanSettings = [];
+        $fontSettings = [];
+        foreach($settings as $setting) {
+            $cleanSettings[$setting->element] = str_replace('mm', '', $setting->y_position);
+            if ($setting->font_size) {
+                $fontSettings[$setting->element] = str_replace('pt', '', $setting->font_size);
+            }
+        }
+
+        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings'));
     }
 
     public function printBack(Certificate $certificate)
     {
         $category = $certificate->category;
         $templateName = strtolower($category->code) . '_back';
-        return view('certificates.templates.' . $templateName, compact('certificate'));
+        
+        $settings = \App\Models\TemplateSetting::where('category_id', $category->id)->get();
+        
+        $cleanSettings = [];
+        $fontSettings = [];
+        foreach($settings as $setting) {
+            $cleanSettings[$setting->element] = str_replace('mm', '', $setting->y_position);
+            if ($setting->font_size) {
+                $fontSettings[$setting->element] = str_replace('pt', '', $setting->font_size);
+            }
+        }
+
+        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings'));
     }
 
 }

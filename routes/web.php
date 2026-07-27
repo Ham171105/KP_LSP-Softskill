@@ -29,4 +29,7 @@ Route::middleware('auth')->group(function () {
     // Print Certificate route
     Route::get('/certificates/{certificate}/print/front', [CertificateController::class, 'printFront'])->name('certificates.print.front');
     Route::get('/certificates/{certificate}/print/back', [CertificateController::class, 'printBack'])->name('certificates.print.back');
+    
+    // Template Settings
+    Route::post('/settings/templates/{category}', [\App\Http\Controllers\TemplateSettingController::class, 'store'])->name('settings.templates.store');
 });

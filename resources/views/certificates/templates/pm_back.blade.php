@@ -11,10 +11,12 @@
         }
         body {
             margin: 0;
-            padding: 0;
+            padding: 40px 0;
             font-family: Arial, sans-serif;
-            background: #fff;
+            background: #525659;
             color: #000;
+            display: flex;
+            justify-content: center;
         }
         .page {
             width: 210mm;
@@ -23,6 +25,9 @@
             padding: 35mm 20mm 25mm 20mm;
             display: flex;
             flex-direction: column;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            margin: 0 auto;
             overflow: hidden;
             background-image: url('{{ asset('images/bg_belakang.png') }}');
             background-size: cover;
@@ -142,7 +147,17 @@
         }
         @media print {
             .btn-print { display: none; }
-            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            body { 
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact; 
+                background: #fff !important; 
+                padding: 0 !important; 
+                display: block !important; 
+            }
+            .page { 
+                box-shadow: none !important; 
+                margin: 0 !important; 
+            }
             table { border: 1px solid #000 !important; }
             th, td { border: 1px solid #000 !important; }
             .photo-box { border: 1px solid #000 !important; }
@@ -150,52 +165,56 @@
     </style>
 </head>
 <body>
-    <button class="btn-print" onclick="window.print()">Cetak Halaman Belakang</button>
+    <button class="btn-print" onclick="printCertificate()">Cetak Halaman Belakang</button>
 
     <div class="page">
         <!-- Title -->
-        <div class="header-title">Daftar Unit Kompetensi</div>
-        <div class="header-subtitle">List of Unit (s) of competency</div>
+        <div id="back_header" data-label="Judul Daftar Unit" class="editable-element" style="position: relative; top: {{ $cleanSettings['back_header'] ?? '0' }}mm; font-size: {{ $fontSettings['back_header'] ?? '14' }}pt;">
+            <div class="header-title" style="font-size: inherit;">Daftar Unit Kompetensi</div>
+            <div class="header-subtitle" style="font-size: inherit;">List of Unit (s) of competency</div>
+        </div>
 
         <!-- Table -->
-        <table>
-            <thead>
-                <tr>
-                    <th style="width: 5%"><span class="font-bold">No</span></th>
-                    <th style="width: 20%"><span class="font-bold">Kode Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Code</span></th>
-                    <th style="width: 75%"><span class="font-bold">Judul Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Title</span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">P.85SOF00.001.1</td>
-                    <td>
-                        Membangun Konsep Diri yang Positif dalam Bekerja<br>
-                        <span style="font-style: italic;">Building a Positive Self-Concept in the Workplace</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">2</td>
-                    <td class="text-center">P.85SOF00.004.1</td>
-                    <td>
-                        Mengembangkan Kemampuan Berpikir Kritis dalam Memecahkan Masalah dan Mencari Solusi<br>
-                        <span style="font-style: italic;">Developing Critical Thinking Skills for Problem Solving and Solution Finding</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">3</td>
-                    <td class="text-center">P.85SOF00.009.1</td>
-                    <td>
-                        Mengembangkan Kemampuan Menghadapi Tantangan di Tempat Kerja<br>
-                        <span style="font-style: italic;">Developing Skills to Overcome Challenges in the Workplace</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div id="back_table" data-label="Tabel Kompetensi" class="editable-element" style="position: relative; top: {{ $cleanSettings['back_table'] ?? '0' }}mm; font-size: {{ $fontSettings['back_table'] ?? '11' }}pt;">
+            <table style="font-size: inherit;">
+                <thead>
+                    <tr>
+                        <th style="width: 5%"><span class="font-bold">No</span></th>
+                        <th style="width: 20%"><span class="font-bold">Kode Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Code</span></th>
+                        <th style="width: 75%"><span class="font-bold">Judul Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Title</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">P.85SOF00.001.1</td>
+                        <td>
+                            Membangun Konsep Diri yang Positif dalam Bekerja<br>
+                            <span style="font-style: italic;">Building a Positive Self-Concept in the Workplace</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td class="text-center">P.85SOF00.004.1</td>
+                        <td>
+                            Mengembangkan Kemampuan Berpikir Kritis dalam Memecahkan Masalah dan Mencari Solusi<br>
+                            <span style="font-style: italic;">Developing Critical Thinking Skills for Problem Solving and Solution Finding</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">3</td>
+                        <td class="text-center">P.85SOF00.009.1</td>
+                        <td>
+                            Mengembangkan Kemampuan Menghadapi Tantangan di Tempat Kerja<br>
+                            <span style="font-style: italic;">Developing Skills to Overcome Challenges in the Workplace</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <!-- Footer Section -->
-        <div class="footer-section">
+        <div id="back_footer" data-label="Bagian Bawah (Ttd & Tgl)" class="footer-section editable-element" style="position: relative; top: {{ $cleanSettings['back_footer'] ?? '0' }}mm; font-size: {{ $fontSettings['back_footer'] ?? '11' }}pt;">
             <!-- Absolutely positioned text block -->
             <div class="footer-text-right">
                 <div style="margin-bottom: 0.5rem;">Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->translatedFormat('d F Y') }}</div>
@@ -229,5 +248,7 @@
             </div>
         </div>
     </div>
+    
+    @include('certificates.templates.editor_panel')
 </body>
 </html>
