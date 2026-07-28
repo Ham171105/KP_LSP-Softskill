@@ -82,7 +82,7 @@ class CertificateController extends Controller
         }
 
         $request->validate([
-            'excel_file' => 'required|file|mimes:xlsx,xls,csv'
+            'excel_file' => 'required|file'
         ]);
 
         try {

@@ -160,8 +160,8 @@
 
 <script>
     // Backend variables
-    const serverCustomTexts = {{ \Illuminate\Support\Js::from($customTextSettings ?? []) }};
-    const serverSettings = {{ \Illuminate\Support\Js::from($settings ?? []) }};
+    const serverCustomTexts = {!! json_encode($customTextSettings ?? []) !!};
+    const serverSettings = {!! json_encode($settings ?? []) !!};
 
     // State management
     let elements = [];
