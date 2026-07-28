@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('certificates', function (Blueprint $table) {
-            $table->string('blanko_number')->nullable()->after('issue_date');
+            if (!Schema::hasColumn('certificates', 'blanko_number')) {
+                $table->string('blanko_number')->nullable()->after('issue_date');
+            }
         });
     }
 

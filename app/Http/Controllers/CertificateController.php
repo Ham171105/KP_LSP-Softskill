@@ -86,7 +86,7 @@ class CertificateController extends Controller
             'issue_date' => $request->issue_date,
         ]);
 
-        return redirect()->back()->with('success', 'Sertifikat berhasil diperbarui.');
+        return redirect()->route('dashboard.category', $certificate->category_id)->with('success', 'Sertifikat berhasil diperbarui.');
     }
 
     public function destroy(Certificate $certificate)
@@ -108,7 +108,7 @@ class CertificateController extends Controller
         $file = $request->file('excel_file');
         if ($file && !$file->isValid()) {
             $errorMessage = $file->getErrorMessage();
-            return redirect()->back()->with('error', "Upload Gagal (Sistem): " . $errorMessage);
+            return redirect()->route('dashboard.category', $category)->with('error', "Upload Gagal (Sistem): " . $errorMessage);
         }
 
         $request->validate([
@@ -117,9 +117,9 @@ class CertificateController extends Controller
 
         try {
             Excel::import(new CertificatesImport($category), $request->file('excel_file'));
-            return redirect()->back()->with('success', "Berhasil mengimpor sertifikat baru.");
+            return redirect()->route('dashboard.category', $category)->with('success', "Berhasil mengimpor sertifikat baru.");
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', "Gagal mengimpor file: " . $e->getMessage());
+            return redirect()->route('dashboard.category', $category)->with('error', "Gagal mengimpor file: " . $e->getMessage());
         }
     }
 
