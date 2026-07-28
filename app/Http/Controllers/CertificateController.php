@@ -16,18 +16,33 @@ class CertificateController extends Controller
     {
         $request->validate([
             'participant_name' => 'required|string|max:255',
+            'certificate_number' => 'required|string|max:255',
+            'registration_number' => 'required|string|max:255',
             'issue_date' => 'required|date',
             'blanko_number' => 'nullable|string|max:255',
             'gender' => 'nullable|in:L,P',
         ]);
 
+        $seq = null;
+        $globalSeq = null;
+
+        if (preg_match('/SOF\.2741\.(\d+)/i', $request->registration_number, $matches)) {
+            $seq = (int) $matches[1];
+        }
+
+        if (preg_match('/85500\s+\w+\s+0\s+(\d+)/i', $request->certificate_number, $matches)) {
+            $globalSeq = (int) $matches[1];
+        }
+
         $generatedIds = CertificateIdGenerator::generate($category, $request->issue_date);
+        if ($seq === null) $seq = $generatedIds['sequence_number'];
+        if ($globalSeq === null) $globalSeq = $generatedIds['global_sequence_number'];
 
         $certificate = $category->certificates()->create([
-            'certificate_number' => $generatedIds['certificate_number'],
-            'registration_number' => $generatedIds['registration_number'],
-            'sequence_number' => $generatedIds['sequence_number'],
-            'global_sequence_number' => $generatedIds['global_sequence_number'],
+            'certificate_number' => $request->certificate_number,
+            'registration_number' => $request->registration_number,
+            'sequence_number' => $seq,
+            'global_sequence_number' => $globalSeq,
             'participant_name' => $request->participant_name,
             'blanko_number' => $request->blanko_number,
             'gender' => $request->gender,
@@ -43,14 +58,29 @@ class CertificateController extends Controller
         $request->validate([
             'participant_name' => 'required|string|max:255',
             'certificate_number' => 'required|string|max:255',
+            'registration_number' => 'required|string|max:255',
             'issue_date' => 'required|date',
             'blanko_number' => 'nullable|string|max:255',
             'gender' => 'nullable|in:L,P',
         ]);
 
+        $seq = $certificate->sequence_number;
+        $globalSeq = $certificate->global_sequence_number;
+
+        if (preg_match('/SOF\.2741\.(\d+)/i', $request->registration_number, $matches)) {
+            $seq = (int) $matches[1];
+        }
+
+        if (preg_match('/85500\s+\w+\s+0\s+(\d+)/i', $request->certificate_number, $matches)) {
+            $globalSeq = (int) $matches[1];
+        }
+
         $certificate->update([
             'participant_name' => $request->participant_name,
             'certificate_number' => $request->certificate_number,
+            'registration_number' => $request->registration_number,
+            'sequence_number' => $seq,
+            'global_sequence_number' => $globalSeq,
             'blanko_number' => $request->blanko_number,
             'gender' => $request->gender,
             'issue_date' => $request->issue_date,

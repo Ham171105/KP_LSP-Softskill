@@ -60,6 +60,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label">No. Sertifikat BNSP</label>
+                    <input type="text" name="certificate_number" class="form-control" value="{{ old('certificate_number', $nextIds['certificate_number'] ?? '') }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">No. Reg. SOF</label>
+                    <input type="text" name="registration_number" class="form-control" value="{{ old('registration_number', $nextIds['registration_number'] ?? '') }}" required>
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">Nomor Blanko</label>
                     <input type="text" name="blanko_number" class="form-control" placeholder="Opsional (Otomatis: {{ $nextBlankoNumber ?? '' }})" value="{{ old('blanko_number', $nextBlankoNumber ?? '') }}">
                 </div>
@@ -209,7 +219,7 @@
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
                                     Belakang
                                 </a>
-                                <button type="button" onclick="openEditModal('{{ $certificate->id }}', '{{ addslashes($certificate->participant_name) }}', '{{ $certificate->certificate_number }}', '{{ \Carbon\Carbon::parse($certificate->issue_date)->format('Y-m-d') }}', '{{ $certificate->gender }}', '{{ $certificate->blanko_number }}')" class="action-btn edit" title="Edit">
+                                <button type="button" onclick="openEditModal('{{ $certificate->id }}', '{{ addslashes($certificate->participant_name) }}', '{{ $certificate->certificate_number }}', '{{ $certificate->registration_number }}', '{{ \Carbon\Carbon::parse($certificate->issue_date)->format('Y-m-d') }}', '{{ $certificate->gender }}', '{{ $certificate->blanko_number }}')" class="action-btn edit" title="Edit">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                                 </button>
                                 <form method="POST" action="{{ route('certificates.destroy', $certificate) }}" onsubmit="return confirm('Yakin ingin menghapus sertifikat ini?');" style="display:inline;">
@@ -287,6 +297,10 @@
             <div class="form-group">
                 <label class="form-label">No. Sertifikat BNSP</label>
                 <input type="text" id="edit-certificate-number" name="certificate_number" class="form-control" required style="font-family: monospace;">
+            </div>
+            <div class="form-group">
+                <label class="form-label">No. Reg. SOF</label>
+                <input type="text" id="edit-registration-number" name="registration_number" class="form-control" required style="font-family: monospace;">
             </div>
             <div class="form-group">
                 <label class="form-label">Jenis Kelamin</label>

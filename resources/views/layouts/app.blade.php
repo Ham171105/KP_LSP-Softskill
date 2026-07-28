@@ -50,9 +50,10 @@
         });
 
         // Single shared modal logic
-        function openEditModal(id, name, certNumber, issueDate, gender, blanko) {
+        function openEditModal(id, name, certNumber, regNumber, issueDate, gender, blanko) {
             document.getElementById('edit-participant-name').value = name;
             document.getElementById('edit-certificate-number').value = certNumber;
+            document.getElementById('edit-registration-number').value = regNumber;
             document.getElementById('edit-blanko-number').value = blanko;
             document.getElementById('edit-issue-date').value = issueDate;
             

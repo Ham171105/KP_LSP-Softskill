@@ -52,6 +52,9 @@ class DashboardController extends Controller
             $nextBlankoNumber = (string)($lastCertificate->blanko_number + 1);
         }
             
-        return view('dashboard.category', compact('category', 'certificates', 'search', 'years', 'year', 'nextBlankoNumber'));
+        // Get next predicted certificate IDs
+        $nextIds = \App\Services\CertificateIdGenerator::generate($category);
+            
+        return view('dashboard.category', compact('category', 'certificates', 'search', 'years', 'year', 'nextBlankoNumber', 'nextIds'));
     }
 }

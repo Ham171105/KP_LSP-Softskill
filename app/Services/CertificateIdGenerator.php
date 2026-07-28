@@ -13,9 +13,8 @@ class CertificateIdGenerator
         $year = $issueDate ? date('Y', strtotime($issueDate)) : date('Y');
         $schemaCode = $category->schema_code ?? '0000'; // Fallback if missing
         
-        // 1. Yearly sequence number (merah) - resets every year
-        $lastYearlyCertificate = Certificate::where('category_id', $category->id)
-            ->whereYear('issue_date', $year)
+        // 1. Yearly sequence number (merah) - resets every year (sekarang menyambung untuk SEMUA skema)
+        $lastYearlyCertificate = Certificate::whereYear('issue_date', $year)
             ->orderBy('sequence_number', 'desc')
             ->first();
 
@@ -25,9 +24,8 @@ class CertificateIdGenerator
             $yearlyNumber = $lastYearlyCertificate->sequence_number + 1;
         }
 
-        // 2. Global sequence number (ijo) - continuous globally (per category)
-        $lastGlobalCertificate = Certificate::where('category_id', $category->id)
-            ->orderBy('global_sequence_number', 'desc')
+        // 2. Global sequence number (ijo) - continuous globally (sekarang menyambung untuk SEMUA skema)
+        $lastGlobalCertificate = Certificate::orderBy('global_sequence_number', 'desc')
             ->first();
 
         if (! $lastGlobalCertificate || !$lastGlobalCertificate->global_sequence_number) {
