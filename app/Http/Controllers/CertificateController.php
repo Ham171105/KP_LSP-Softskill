@@ -116,8 +116,16 @@ class CertificateController extends Controller
         ]);
 
         try {
-            Excel::import(new CertificatesImport($category), $request->file('excel_file'));
-            return redirect()->route('dashboard.category', $category)->with('success', "Berhasil mengimpor sertifikat baru.");
+            $import = new CertificatesImport($category);
+            Excel::import($import, $request->file('excel_file'));
+            
+            $msg = "Berhasil mengimpor sertifikat baru.";
+            if (count($import->duplicates) > 0) {
+                $msg .= " Namun, terdapat " . count($import->duplicates) . " data duplikat yang diabaikan agar tidak ganda.";
+                return redirect()->route('dashboard.category', $category)->with('error', $msg);
+            }
+            
+            return redirect()->route('dashboard.category', $category)->with('success', $msg);
         } catch (\Exception $e) {
             return redirect()->route('dashboard.category', $category)->with('error', "Gagal mengimpor file: " . $e->getMessage());
         }

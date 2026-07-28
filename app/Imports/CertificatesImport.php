@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 class CertificatesImport implements ToCollection, WithHeadingRow
 {
     protected $category;
+    public $duplicates = [];
 
     public function __construct(Category $category)
     {
@@ -38,6 +39,16 @@ class CertificatesImport implements ToCollection, WithHeadingRow
             $gender = strtoupper(trim($row['jenis_kelamin_lp'] ?? ''));
             if (!in_array($gender, ['L', 'P'])) {
                 $gender = null;
+            }
+            
+            // Check for duplicate in database
+            $isDuplicate = \App\Models\Certificate::where('category_id', $this->category->id)
+                ->where('participant_name', $name)
+                ->exists();
+
+            if ($isDuplicate) {
+                $this->duplicates[] = $name;
+                continue;
             }
             
             $blanko = trim($row['nomor_blanko'] ?? '');
