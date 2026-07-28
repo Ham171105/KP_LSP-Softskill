@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cetak Depan - Kepemimpinan</title>
+    <title>Cetak Depan - Komunikasi</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo-icon.png') }}">
     <style>
         @page {
@@ -119,9 +119,9 @@
             <span class="font-italic">With the Qualification / Competency :</span>
         </div>
 
-        <div id="competency_title" data-label="Judul Kompetensi (Kepemimpinan)" class="abs-text editable-element" style="left: {{ $xSettings['competency_title'] ?? '105' }}mm; top: {{ $cleanSettings['competency_title'] ?? '170' }}mm; font-size: {{ $fontSettings['competency_title'] ?? '12' }}pt;">
-            <div class="font-bold">Pengembangan Kepemimpinan</div>
-            <div class="font-bold font-italic">Leadership Development</div>
+        <div id="competency_title" data-label="Judul Kompetensi (Komunikasi)" class="abs-text editable-element" style="left: {{ $xSettings['competency_title'] ?? '105' }}mm; top: {{ $cleanSettings['competency_title'] ?? '170' }}mm; font-size: {{ $fontSettings['competency_title'] ?? '12' }}pt;">
+            <div class="font-bold">Pengembangan Komunikasi Yang Efektif</div>
+            <div class="font-bold font-italic">Effective Communication Development</div>
         </div>
 
         <div id="validity" data-label="Masa Berlaku" class="abs-text editable-element" style="left: {{ $xSettings['validity'] ?? '105' }}mm; top: {{ $cleanSettings['validity'] ?? '195' }}mm; font-size: {{ $fontSettings['validity'] ?? '11' }}pt;">
