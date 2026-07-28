@@ -238,7 +238,7 @@
 
                                 <!-- Footer Section Elements (Separated) -->
         <div id="back_date_text" data-label="Teks Tgl & Instansi" class="abs-text editable-element" style="left: {{ $xSettings['back_date_text'] ?? '145' }}mm; top: {{ $cleanSettings['back_date_text'] ?? '175' }}mm; font-size: {{ $fontSettings['back_date_text'] ?? '11' }}pt; text-align: right; width: 120mm;">
-            <div style="margin-bottom: 0.5rem;">Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->translatedFormat('d F Y') }}</div>
+            <div style="margin-bottom: 0.5rem;">Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->locale('id')->translatedFormat('d F Y') }}</div>
             <div>Atas Nama Badan Nasional Sertifikasi Profesi</div>
             <div class="font-italic">On Behalf of Indonesia Professional Certification Authority</div>
             <div class="font-bold">Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten</div>

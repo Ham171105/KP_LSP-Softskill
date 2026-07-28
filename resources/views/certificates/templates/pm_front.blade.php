@@ -130,7 +130,7 @@
         </div>
 
         <div id="issue_date" data-label="Tempat, Tanggal Terbit" class="abs-text editable-element" style="left: {{ $xSettings['issue_date'] ?? '105' }}mm; top: {{ $cleanSettings['issue_date'] ?? '220' }}mm; font-size: {{ $fontSettings['issue_date'] ?? '11' }}pt;">
-            Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->translatedFormat('d F Y') }}
+            Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->locale('id')->translatedFormat('d F Y') }}
         </div>
 
         <div id="signature_text" data-label="Teks Tanda Tangan" class="abs-text editable-element" style="left: {{ $xSettings['signature_text'] ?? '105' }}mm; top: {{ $cleanSettings['signature_text'] ?? '230' }}mm; line-height: 1.3; font-size: {{ $fontSettings['signature_text'] ?? '11' }}pt;">
