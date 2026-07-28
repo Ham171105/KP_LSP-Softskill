@@ -15,6 +15,9 @@ class TemplateSetting extends Model
         'x_position',
         'y_position',
         'font_size',
+        'font_family',
+        'is_bold',
+        'is_italic',
         'custom_text'
     ];
 

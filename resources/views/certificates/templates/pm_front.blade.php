@@ -95,11 +95,14 @@
             <span class="font-italic">This is to certify that,</span>
         </div>
 
-        <div id="participant_name" data-label="Nama Peserta & No. Reg" class="abs-text editable-element" style="left: {{ $xSettings['participant_name'] ?? '105' }}mm; top: {{ $cleanSettings['participant_name'] ?? '105' }}mm; font-size: {{ $fontSettings['participant_name'] ?? '14' }}pt;">
-            <div class="font-bold" style="text-transform: uppercase; font-size: 1em;">
+        <div id="participant_name" data-label="Nama Peserta" class="abs-text editable-element" style="left: {{ $xSettings['participant_name'] ?? '105' }}mm; top: {{ $cleanSettings['participant_name'] ?? '105' }}mm; font-size: {{ $fontSettings['participant_name'] ?? '14' }}pt;">
+            <div class="font-bold" style="text-transform: uppercase;">
                 {{ $certificate->participant_name }}
             </div>
-            <div class="font-bold" style="margin-top: 2mm; font-size: 0.8em;">
+        </div>
+
+        <div id="registration_number" data-label="No. Reg" class="abs-text editable-element" style="left: {{ $xSettings['registration_number'] ?? '105' }}mm; top: {{ $cleanSettings['registration_number'] ?? '112' }}mm; font-size: {{ $fontSettings['registration_number'] ?? '11' }}pt;">
+            <div class="font-bold">
                 No. Reg. {{ $certificate->registration_number }}
             </div>
         </div>

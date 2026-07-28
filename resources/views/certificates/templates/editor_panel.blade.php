@@ -202,6 +202,9 @@
                 y: parseMM(el.style.top || window.getComputedStyle(el).top),
                 x: leftVal,
                 fontSize: parsePT(el.style.fontSize || window.getComputedStyle(el).fontSize),
+                fontFamily: el.style.fontFamily || window.getComputedStyle(el).fontFamily || 'Arial',
+                isBold: el.style.fontWeight === 'bold' || el.style.fontWeight >= 700 || el.classList.contains('font-bold'),
+                isItalic: el.style.fontStyle === 'italic' || el.classList.contains('font-italic'),
                 customText: el.getAttribute('data-custom-text') || ''
             };
         });
@@ -220,6 +223,11 @@
                 el.style.top = data.y + 'mm';
                 el.style.left = data.x + 'mm';
                 el.style.fontSize = data.fontSize + 'pt';
+                el.style.fontFamily = data.fontFamily;
+                
+                if (data.isBold) el.style.fontWeight = 'bold'; else el.style.fontWeight = 'normal';
+                if (data.isItalic) el.style.fontStyle = 'italic'; else el.style.fontStyle = 'normal';
+                
                 el.setAttribute('data-custom-text', data.customText);
                 
                 if (data.customText.trim() !== '') {
@@ -234,11 +242,17 @@
                 const xRange = document.getElementById(`range_x_${id}`);
                 const sizeInput = document.getElementById(`size_${id}`);
                 const sizeRange = document.getElementById(`range_size_${id}`);
+                const fontSelect = document.getElementById(`font_${id}`);
+                const boldCheck = document.getElementById(`bold_${id}`);
+                const italicCheck = document.getElementById(`italic_${id}`);
                 const textInput = document.getElementById(`text_${id}`);
                 
                 if (yInput) { yInput.value = data.y; yRange.value = data.y; }
                 if (xInput) { xInput.value = data.x; xRange.value = data.x; }
                 if (sizeInput) { sizeInput.value = data.fontSize; sizeRange.value = data.fontSize; }
+                if (fontSelect) { fontSelect.value = data.fontFamily.replace(/['"]/g, ''); }
+                if (boldCheck) { boldCheck.checked = data.isBold; }
+                if (italicCheck) { italicCheck.checked = data.isItalic; }
                 if (textInput) { textInput.value = data.customText; }
             }
         }
@@ -259,12 +273,20 @@
         let currentY = el.style.top ? parseMM(el.style.top) : (parseFloat(window.getComputedStyle(el).top) * 0.264583).toFixed(1);
         let currentX = el.style.left ? parseMM(el.style.left) : 105;
         let currentSize = el.style.fontSize ? parsePT(el.style.fontSize) : parsePT(window.getComputedStyle(el).fontSize);
+        let currentFont = el.style.fontFamily || window.getComputedStyle(el).fontFamily || 'Arial';
+        currentFont = currentFont.replace(/['"]/g, ''); // Clean quotes
+        let currentBold = el.style.fontWeight === 'bold' || el.style.fontWeight >= 700 || el.classList.contains('font-bold');
+        let currentItalic = el.style.fontStyle === 'italic' || el.classList.contains('font-italic');
         let currentText = el.getAttribute('data-custom-text') || '';
+        let placeholderText = el.innerText.trim().replace(/"/g, '&quot;');
         
         serverSavedState[id] = {
             y: currentY,
             x: currentX,
             fontSize: currentSize,
+            fontFamily: currentFont,
+            isBold: currentBold,
+            isItalic: currentItalic,
             customText: currentText
         };
 
@@ -272,11 +294,9 @@
             <div class="control-group" id="group_${id}">
                 <label>${label}</label>
                 
-                ${isNew ? `
-                <div style="font-size: 11px; margin-bottom: 4px; color: #64748b; margin-top: 5px;">Teks (Bebas)</div>
-                <textarea id="text_${id}" rows="2" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px; font-size: 12px; margin-bottom: 10px;"
+                <div style="font-size: 11px; margin-bottom: 4px; color: #64748b; margin-top: 5px;">Teks (Opsional, timpa teks asli)</div>
+                <textarea id="text_${id}" rows="2" placeholder="${placeholderText}" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px; font-size: 12px; margin-bottom: 10px;"
                           onchange="updateValue('${id}', 'text', this.value)">${currentText}</textarea>
-                ` : ''}
 
                 <div style="font-size: 11px; margin-bottom: 4px; color: #64748b;">Posisi Y (Naik/Turun)</div>
                 <div class="slider-container">
@@ -300,6 +320,28 @@
                            oninput="updateValue('${id}', 'size', this.value)">
                     <input type="number" id="size_${id}" value="${currentSize}" step="0.5" 
                            onchange="updateValue('${id}', 'size', this.value)">
+                </div>
+
+                <div style="font-size: 11px; margin-bottom: 4px; color: #64748b; margin-top: 10px;">Jenis Font</div>
+                <select id="font_${id}" onchange="updateValue('${id}', 'font', this.value)" style="width: 100%; padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; margin-bottom: 10px;">
+                    <option value="Arial" ${currentFont === 'Arial' ? 'selected' : ''}>Arial</option>
+                    <option value="Tahoma" ${currentFont === 'Tahoma' ? 'selected' : ''}>Tahoma</option>
+                    <option value="Times New Roman" ${currentFont === 'Times New Roman' ? 'selected' : ''}>Times New Roman</option>
+                    <option value="Calibri" ${currentFont === 'Calibri' ? 'selected' : ''}>Calibri</option>
+                    <option value="Verdana" ${currentFont === 'Verdana' ? 'selected' : ''}>Verdana</option>
+                    <option value="Cambria" ${currentFont === 'Cambria' ? 'selected' : ''}>Cambria</option>
+                    <option value="Courier New" ${currentFont === 'Courier New' ? 'selected' : ''}>Courier New</option>
+                </select>
+                
+                <div style="display: flex; gap: 15px; margin-top: 10px;">
+                    <label style="display:flex; align-items:center; gap:5px; font-weight:normal; cursor:pointer;">
+                        <input type="checkbox" id="bold_${id}" ${currentBold ? 'checked' : ''} onchange="updateValue('${id}', 'bold', this.checked)">
+                        <b>B</b> Bold
+                    </label>
+                    <label style="display:flex; align-items:center; gap:5px; font-weight:normal; cursor:pointer;">
+                        <input type="checkbox" id="italic_${id}" ${currentItalic ? 'checked' : ''} onchange="updateValue('${id}', 'italic', this.checked)">
+                        <i>I</i> Italic
+                    </label>
                 </div>
                 
                 ${isNew ? `<button onclick="deleteCustomElement('${id}')" style="margin-top: 10px; width: 100%; padding: 5px; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer;">🗑️ Hapus Elemen</button>` : ''}
@@ -332,11 +374,20 @@
         // 2. Fetch all elements including newly injected ones
         elements = Array.from(document.querySelectorAll('.editable-element'));
 
-        // 3. Store default HTML for fallback and apply custom texts
+        // 3. Store default HTML for fallback, apply styles and custom texts
         elements.forEach(el => {
             if (!el.hasAttribute('data-default-html')) {
                 el.setAttribute('data-default-html', el.innerHTML);
             }
+            
+            // Apply server settings for bold/italic if they exist
+            const setting = serverSettings.find(s => s.element === el.id);
+            if (setting) {
+                if (setting.is_bold) el.style.fontWeight = 'bold'; else el.style.fontWeight = 'normal';
+                if (setting.is_italic) el.style.fontStyle = 'italic'; else el.style.fontStyle = 'normal';
+                if (setting.font_family) el.style.fontFamily = setting.font_family;
+            }
+
             if (serverCustomTexts[el.id]) {
                 el.setAttribute('data-custom-text', serverCustomTexts[el.id]);
                 if (serverCustomTexts[el.id].trim() !== '') {
@@ -420,11 +471,20 @@
             } else if (el.hasAttribute('data-default-html')) {
                 el.innerHTML = el.getAttribute('data-default-html');
             }
+        } else if (type === 'font') {
+            document.getElementById(`font_${id}`).value = value;
+            el.style.fontFamily = value;
+        } else if (type === 'bold') {
+            document.getElementById(`bold_${id}`).checked = value;
+            el.style.fontWeight = value ? 'bold' : 'normal';
+        } else if (type === 'italic') {
+            document.getElementById(`italic_${id}`).checked = value;
+            el.style.fontStyle = value ? 'italic' : 'normal';
         }
     }
 
     controlsContainer.addEventListener('change', (e) => {
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
             captureState();
         }
     });
@@ -502,10 +562,16 @@
         elements.forEach(el => {
             const id = el.id;
             const customTextVal = document.getElementById(`text_${id}`) ? document.getElementById(`text_${id}`).value : '';
+            const fontVal = document.getElementById(`font_${id}`) ? document.getElementById(`font_${id}`).value : 'Arial';
+            const boldVal = document.getElementById(`bold_${id}`) ? document.getElementById(`bold_${id}`).checked : false;
+            const italicVal = document.getElementById(`italic_${id}`) ? document.getElementById(`italic_${id}`).checked : false;
             settings[id] = {
                 y: document.getElementById(`y_${id}`).value + 'mm',
                 x: document.getElementById(`x_${id}`).value + 'mm',
                 fontSize: document.getElementById(`size_${id}`).value + 'pt',
+                fontFamily: fontVal,
+                isBold: boldVal,
+                isItalic: italicVal,
                 custom_text: customTextVal
             };
         });
@@ -530,6 +596,9 @@
                         y: parseMM(document.getElementById(`y_${id}`).value),
                         x: parseMM(document.getElementById(`x_${id}`).value),
                         fontSize: parsePT(document.getElementById(`size_${id}`).value),
+                        fontFamily: document.getElementById(`font_${id}`) ? document.getElementById(`font_${id}`).value : 'Arial',
+                        isBold: document.getElementById(`bold_${id}`) ? document.getElementById(`bold_${id}`).checked : false,
+                        isItalic: document.getElementById(`italic_${id}`) ? document.getElementById(`italic_${id}`).checked : false,
                         customText: document.getElementById(`text_${id}`) ? document.getElementById(`text_${id}`).value : ''
                     };
                 });

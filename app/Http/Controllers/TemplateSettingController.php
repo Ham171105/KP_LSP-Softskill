@@ -25,6 +25,9 @@ class TemplateSettingController extends Controller
                         'x_position' => $data['x'] ?? null,
                         'y_position' => $data['y'] ?? null,
                         'font_size' => $data['fontSize'] ?? null,
+                        'font_family' => $data['fontFamily'] ?? null,
+                        'is_bold' => $data['isBold'] ?? false,
+                        'is_italic' => $data['isItalic'] ?? false,
                         'custom_text' => $data['custom_text'] ?? null
                     ]
                 );
