@@ -103,7 +103,7 @@
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
                             Depan
                         </span>
-                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">Mencetak halaman depan sertifikat (Template Khusus KPM, KOM, atau MET).</p>
+                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">Mencetak halaman depan sertifikat (Template Khusus KPM, KOM, atau PM).</p>
                     </div>
                     
                     <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
@@ -112,6 +112,14 @@
                             Belakang
                         </span>
                         <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">Mencetak halaman belakang berisi tabel unit kompetensi dari masing-masing bidang.</p>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
+                        <span class="badge" style="background: var(--warning-light); color: var(--warning); padding: 0.3rem 0.6rem; pointer-events: none; border-radius: 4px; display: inline-flex; align-items: center; gap: 0.3rem; font-weight: 600;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                            Panel Editor
+                        </span>
+                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">Saat Anda berada di halaman Cetak (Depan/Belakang), gunakan Panel di sebelah kanan untuk <strong>Menggeser Posisi Teks</strong> dan mengatur <strong>Ukuran Font</strong>. Perubahan akan tersimpan permanen untuk skema tersebut.</p>
                     </div>
 
                     <div class="info-box info">
