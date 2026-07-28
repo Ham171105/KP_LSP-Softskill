@@ -236,7 +236,7 @@
             </div>
         </div>
 
-        <div id="back_holder_signature" data-label="Tanda Tangan Pemilik" class="abs-text editable-element" style="left: {{ $xSettings['back_holder_signature'] ?? '35' }}mm; top: {{ $cleanSettings['back_holder_signature'] ?? '250' }}mm; font-size: {{ $fontSettings['back_holder_signature'] ?? '11' }}pt; text-align: center;">
+        <div id="back_holder_signature" data-label="Tanda Tangan Pemilik" class="abs-text editable-element" style="left: {{ $xSettings['back_holder_signature'] ?? '35' }}mm; top: {{ $cleanSettings['back_holder_signature'] ?? '250' }}mm; font-size: {{ $fontSettings['back_holder_signature'] ?? '11' }}pt; text-align: left;">
             <div class="font-bold" style="text-decoration: underline; text-transform: uppercase; font-size: inherit;">{{ $certificate->participant_name }}</div>
             <div style="color: #000; font-size: inherit;">Tanda tangan pemilik</div>
             <div class="font-italic" style="color: #000; font-size: inherit;">(Signature of holder)</div>
