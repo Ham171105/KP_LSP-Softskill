@@ -102,22 +102,30 @@
 
             <div style="background: var(--surface-hover); border-radius: var(--radius-lg); padding: 1rem; border: 1px solid var(--border); margin-bottom: 1.25rem;">
                 <p style="font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">
-                    Sistem otomatis menyesuaikan cetakan untuk <strong>Kertas Blangko BNSP</strong> asli.
+                    Panduan ringkas fitur-fitur yang tersedia di halaman ini.
                 </p>
             </div>
 
-            <ul style="font-size: 0.8125rem; color: var(--text-secondary); padding-left: 0; line-height: 1.6; list-style: none; display: flex; flex-direction: column; gap: 0.875rem; margin-bottom: 1.5rem;">
+            <ul style="font-size: 0.8125rem; color: var(--text-secondary); padding-left: 0; line-height: 1.6; list-style: none; display: flex; flex-direction: column; gap: 0.875rem; margin-bottom: 1.5rem; max-height: 250px; overflow-y: auto; padding-right: 0.5rem;">
                 <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
                     <div style="background: var(--primary-light); color: var(--primary); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0;">1</div>
-                    <span>Penomoran BNSP & No. Registrasi <strong>otomatis berurutan</strong> sesuai skema {{ $category->name }}.</span>
+                    <span><strong>Input Data:</strong> Bisa manual via form di kiri, atau massal klik tombol <strong>Import</strong> Excel (sistem anti-duplikat aktif).</span>
                 </li>
                 <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
                     <div style="background: var(--primary-light); color: var(--primary); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0;">2</div>
-                    <span>Klik <span class="badge badge-primary" style="padding: 0.15rem 0.4rem;">Cetak Depan</span> untuk sisi identitas peserta.</span>
+                    <span><strong>Penomoran Otomatis:</strong> No. BNSP & Registrasi selalu berurutan sesuai skema saat di-<em>generate</em>.</span>
                 </li>
                 <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
                     <div style="background: var(--primary-light); color: var(--primary); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0;">3</div>
-                    <span>Klik <span class="badge badge-primary" style="padding: 0.15rem 0.4rem;">Cetak Belakang</span> untuk sisi tabel unit kompetensi.</span>
+                    <span><strong>Cetak:</strong> Klik <span class="badge badge-primary" style="padding: 0.15rem 0.4rem;">Cetak Depan</span> atau <span class="badge badge-primary" style="padding: 0.15rem 0.4rem;">Belakang</span> di tabel untuk pratinjau.</span>
+                </li>
+                <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                    <div style="background: var(--primary-light); color: var(--primary); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0;">4</div>
+                    <span><strong>Atur Tata Letak:</strong> Di halaman Cetak, terdapat <strong>Panel Editor</strong> untuk menggeser teks & mengatur ukuran font. Perubahan tersimpan permanen!</span>
+                </li>
+                <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                    <div style="background: var(--primary-light); color: var(--primary); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0;">5</div>
+                    <span><strong>Kelola:</strong> Gunakan ikon pensil (Edit) atau tempat sampah (Hapus) pada tabel untuk merevisi data.</span>
                 </li>
             </ul>
 
