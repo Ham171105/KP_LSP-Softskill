@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('certificates', function (Blueprint $table) {
-            $table->string('blanko_number')->nullable()->after('certificate_number');
-            $table->enum('gender', ['L', 'P'])->nullable()->after('participant_name');
+            if (!Schema::hasColumn('certificates', 'blanko_number')) {
+                $table->string('blanko_number')->nullable()->after('certificate_number');
+            }
+            if (!Schema::hasColumn('certificates', 'gender')) {
+                $table->enum('gender', ['L', 'P'])->nullable()->after('participant_name');
+            }
         });
     }
 

@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('template_settings', function (Blueprint $table) {
-            $table->string('custom_text')->nullable()->after('font_size');
+            if (!Schema::hasColumn('template_settings', 'custom_text')) {
+                $table->string('custom_text')->nullable()->after('font_size');
+            }
         });
     }
 

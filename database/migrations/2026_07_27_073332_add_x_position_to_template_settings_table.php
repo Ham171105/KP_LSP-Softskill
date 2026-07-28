@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('template_settings', function (Blueprint $table) {
-            $table->string('x_position')->nullable()->after('y_position');
+            if (!Schema::hasColumn('template_settings', 'x_position')) {
+                $table->string('x_position')->nullable()->after('y_position');
+            }
         });
     }
 

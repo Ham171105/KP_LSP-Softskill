@@ -264,7 +264,6 @@
             <div class="font-italic" style="color: #000; font-size: inherit;">(Certification Manager)</div>
         </div>
     </div>
-    </div>
     
     @include('certificates.templates.editor_panel')
 </body>

@@ -59,8 +59,28 @@ class CertificatesImport implements ToCollection, WithHeadingRow
                 }
             }
 
-            // Generate IDs
+            // Generate IDs (fallback)
             $generatedIds = CertificateIdGenerator::generate($this->category, $issueDate);
+
+            // Override with Excel data if available
+            $rawReg = trim($row['no_reg_sof'] ?? '');
+            if (!empty($rawReg)) {
+                if (preg_match('/SOF\.2741\.(\d+)\s+(\d{4})/i', $rawReg, $matches)) {
+                    $seq = (int) $matches[1];
+                    $yr = $matches[2];
+                    
+                    $generatedIds['sequence_number'] = $seq;
+                    $generatedIds['global_sequence_number'] = $seq;
+                    $generatedIds['registration_number'] = sprintf("SOF.2741.%05d %s", $seq, $yr);
+                    
+                    $schemaCode = $this->category->schema_code ?? '0000';
+                    $generatedIds['certificate_number'] = sprintf("85500 %s 0 %07d %s", $schemaCode, $seq, $yr);
+                } else {
+                    // Fallback to literal string if regex fails, strip 'No. Reg. ' if present
+                    $cleanReg = trim(str_ireplace('No. Reg.', '', $rawReg));
+                    $generatedIds['registration_number'] = $cleanReg;
+                }
+            }
 
             $this->category->certificates()->create([
                 'certificate_number' => $generatedIds['certificate_number'],
