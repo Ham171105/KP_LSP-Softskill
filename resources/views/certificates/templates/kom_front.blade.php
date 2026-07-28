@@ -105,8 +105,8 @@
         </div>
 
         <div id="text_competent" data-label="Teks 'Telah kompeten pada bidang'" class="abs-text editable-element" style="left: {{ $xSettings['text_competent'] ?? '105' }}mm; top: {{ $cleanSettings['text_competent'] ?? '125' }}mm; font-size: {{ $fontSettings['text_competent'] ?? '11' }}pt;">
-            Telah kompeten pada bidang:<br>
-            <span class="font-italic">Is competent in the area of:</span>
+            Telah kompeten pada bidang :<br>
+            <span class="font-italic">Is competent in the area of :</span>
         </div>
 
         <div id="area_title" data-label="Judul Bidang (Soft Skills)" class="abs-text editable-element" style="left: {{ $xSettings['area_title'] ?? '105' }}mm; top: {{ $cleanSettings['area_title'] ?? '140' }}mm; font-size: {{ $fontSettings['area_title'] ?? '12' }}pt;">
@@ -115,8 +115,8 @@
         </div>
 
         <div id="text_qualification" data-label="Teks 'Dengan kualifikasi / Kompetensi'" class="abs-text editable-element" style="left: {{ $xSettings['text_qualification'] ?? '105' }}mm; top: {{ $cleanSettings['text_qualification'] ?? '155' }}mm; font-size: {{ $fontSettings['text_qualification'] ?? '11' }}pt;">
-            Dengan kualifikasi / Kompetensi:<br>
-            <span class="font-italic">With the Qualification / Competency:</span>
+            Dengan kualifikasi / Kompetensi :<br>
+            <span class="font-italic">With the Qualification / Competency :</span>
         </div>
 
         <div id="competency_title" data-label="Judul Kompetensi (Komunikasi)" class="abs-text editable-element" style="left: {{ $xSettings['competency_title'] ?? '105' }}mm; top: {{ $cleanSettings['competency_title'] ?? '170' }}mm; font-size: {{ $fontSettings['competency_title'] ?? '12' }}pt;">
