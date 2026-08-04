@@ -12,7 +12,7 @@
         body {
             margin: 0;
             padding: 40px 0;
-            font-family: Arial, sans-serif;
+            font-family: Tahoma, sans-serif;
             background: #525659;
             color: #000;
             display: flex;
