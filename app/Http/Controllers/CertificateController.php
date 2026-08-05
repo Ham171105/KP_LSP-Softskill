@@ -142,6 +142,12 @@ class CertificateController extends Controller
         $fontSettings = [];
         $xSettings = [];
         $customTextSettings = [];
+        $fontFamilySettings = [];
+        $boldSettings = [];
+        $italicSettings = [];
+        $textAlignSettings = [];
+        $colorSettings = [];
+        $underlineSettings = [];
         foreach($settings as $setting) {
             $cleanSettings[$setting->element] = str_replace('mm', '', $setting->y_position);
             if ($setting->font_size) {
@@ -153,9 +159,27 @@ class CertificateController extends Controller
             if ($setting->custom_text !== null) {
                 $customTextSettings[$setting->element] = $setting->custom_text;
             }
+            if ($setting->font_family) {
+                $fontFamilySettings[$setting->element] = $setting->font_family;
+            }
+            if ($setting->is_bold !== null) {
+                $boldSettings[$setting->element] = $setting->is_bold;
+            }
+            if ($setting->is_italic !== null) {
+                $italicSettings[$setting->element] = $setting->is_italic;
+            }
+            if ($setting->text_align) {
+                $textAlignSettings[$setting->element] = $setting->text_align;
+            }
+            if ($setting->color) {
+                $colorSettings[$setting->element] = $setting->color;
+            }
+            if ($setting->is_underline !== null) {
+                $underlineSettings[$setting->element] = $setting->is_underline;
+            }
         }
 
-        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings', 'xSettings', 'customTextSettings', 'settings'));
+        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings', 'xSettings', 'customTextSettings', 'fontFamilySettings', 'boldSettings', 'italicSettings', 'textAlignSettings', 'colorSettings', 'underlineSettings', 'settings'));
     }
 
     public function printBack(Certificate $certificate)
@@ -169,6 +193,12 @@ class CertificateController extends Controller
         $fontSettings = [];
         $xSettings = [];
         $customTextSettings = [];
+        $fontFamilySettings = [];
+        $boldSettings = [];
+        $italicSettings = [];
+        $textAlignSettings = [];
+        $colorSettings = [];
+        $underlineSettings = [];
         foreach($settings as $setting) {
             $cleanSettings[$setting->element] = str_replace('mm', '', $setting->y_position);
             if ($setting->font_size) {
@@ -180,9 +210,27 @@ class CertificateController extends Controller
             if ($setting->custom_text !== null) {
                 $customTextSettings[$setting->element] = $setting->custom_text;
             }
+            if ($setting->font_family) {
+                $fontFamilySettings[$setting->element] = $setting->font_family;
+            }
+            if ($setting->is_bold !== null) {
+                $boldSettings[$setting->element] = $setting->is_bold;
+            }
+            if ($setting->is_italic !== null) {
+                $italicSettings[$setting->element] = $setting->is_italic;
+            }
+            if ($setting->text_align) {
+                $textAlignSettings[$setting->element] = $setting->text_align;
+            }
+            if ($setting->color) {
+                $colorSettings[$setting->element] = $setting->color;
+            }
+            if ($setting->is_underline !== null) {
+                $underlineSettings[$setting->element] = $setting->is_underline;
+            }
         }
 
-        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings', 'xSettings', 'customTextSettings', 'settings'));
+        return view('certificates.templates.' . $templateName, compact('certificate', 'cleanSettings', 'fontSettings', 'xSettings', 'customTextSettings', 'fontFamilySettings', 'boldSettings', 'italicSettings', 'textAlignSettings', 'colorSettings', 'underlineSettings', 'settings'));
     }
 
 }

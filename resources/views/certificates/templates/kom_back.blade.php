@@ -22,10 +22,9 @@
             position: relative;
             width: 210mm;
             height: 297mm;
+            min-height: 297mm;
             box-sizing: border-box;
             padding: 35mm 20mm 25mm 20mm;
-            display: flex;
-            flex-direction: column;
             background-color: #fff;
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
             margin: 0 auto;
@@ -176,19 +175,19 @@
 
     <div class="page">
         <!-- Title -->
-        <div id="back_header" data-label="Judul Daftar Unit" class="editable-element" style="left: {{ $xSettings['back_header'] ?? '0' }}mm; position: relative; top: {{ $cleanSettings['back_header'] ?? '0' }}mm; font-size: {{ $fontSettings['back_header'] ?? '14' }}pt;">
+        <div id="back_header" data-label="Judul Daftar Unit" class="editable-element" style="left: {{ $xSettings['back_header'] ?? '0' }}mm; position: relative; top: {{ $cleanSettings['back_header'] ?? '0' }}mm; font-size: {{ $fontSettings['back_header'] ?? '14' }}pt; {!! isset($fontFamilySettings['back_header']) ? 'font-family: '.$fontFamilySettings['back_header'].'; ' : '' !!}{!! isset($boldSettings['back_header']) ? ($boldSettings['back_header'] ? 'font-weight: bold; ' : 'font-weight: normal; ') : '' !!}{!! isset($italicSettings['back_header']) ? ($italicSettings['back_header'] ? 'font-style: italic; ' : 'font-style: normal; ') : '' !!}{!! isset($textAlignSettings['back_header']) ? 'text-align: '.$textAlignSettings['back_header'].'; ' : '' !!}{!! isset($colorSettings['back_header']) ? 'color: '.$colorSettings['back_header'].'; ' : '' !!}{!! isset($underlineSettings['back_header']) && $underlineSettings['back_header'] ? 'text-decoration: underline; ' : '' !!}">
             <div class="header-title" style="font-size: inherit;">Daftar Unit Kompetensi</div>
             <div class="header-subtitle" style="font-size: inherit;">List of Unit (s) of competency</div>
         </div>
 
         <!-- Table -->
-        <div id="back_table" data-label="Tabel Kompetensi" class="editable-element" style="left: {{ $xSettings['back_table'] ?? '0' }}mm; position: relative; top: {{ $cleanSettings['back_table'] ?? '0' }}mm; font-size: {{ $fontSettings['back_table'] ?? '11' }}pt;">
+        <div id="back_table" data-label="Tabel Kompetensi" class="editable-element" style="left: {{ $xSettings['back_table'] ?? '0' }}mm; position: relative; top: {{ $cleanSettings['back_table'] ?? '0' }}mm; font-size: {{ $fontSettings['back_table'] ?? '11' }}pt; {!! isset($fontFamilySettings['back_table']) ? 'font-family: '.$fontFamilySettings['back_table'].'; ' : '' !!}{!! isset($boldSettings['back_table']) ? ($boldSettings['back_table'] ? 'font-weight: bold; ' : 'font-weight: normal; ') : '' !!}{!! isset($italicSettings['back_table']) ? ($italicSettings['back_table'] ? 'font-style: italic; ' : 'font-style: normal; ') : '' !!}{!! isset($textAlignSettings['back_table']) ? 'text-align: '.$textAlignSettings['back_table'].'; ' : '' !!}{!! isset($colorSettings['back_table']) ? 'color: '.$colorSettings['back_table'].'; ' : '' !!}{!! isset($underlineSettings['back_table']) && $underlineSettings['back_table'] ? 'text-decoration: underline; ' : '' !!}">
             <table style="font-size: inherit;">
             <thead>
                 <tr>
-                    <th style="width: 5%"><span class="font-bold">No</span></th>
-                    <th style="width: 20%"><span class="font-bold">Kode Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Code</span></th>
-                    <th style="width: 75%"><span class="font-bold">Judul Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Title</span></th>
+                    <th style="width: 5%"><span style="font-weight: bold;">No</span></th>
+                    <th style="width: 20%"><span style="font-weight: bold;">Kode Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Code</span></th>
+                    <th style="width: 75%"><span style="font-weight: bold;">Judul Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Title</span></th>
                 </tr>
             </thead>
             <tbody>
@@ -237,31 +236,31 @@
         </div>
 
                                 <!-- Footer Section Elements (Separated) -->
-        <div id="back_date_text" data-label="Teks Tgl & Instansi" class="abs-text editable-element" style="left: {{ $xSettings['back_date_text'] ?? '110' }}mm; top: {{ $cleanSettings['back_date_text'] ?? '175' }}mm; font-size: {{ $fontSettings['back_date_text'] ?? '11' }}pt; text-align: right; width: 120mm;">
+        <div id="back_date_text" data-label="Teks Tgl & Instansi" class="abs-text editable-element" style="left: {{ $xSettings['back_date_text'] ?? '110' }}mm; top: {{ $cleanSettings['back_date_text'] ?? '168' }}mm; font-size: {{ $fontSettings['back_date_text'] ?? '11' }}pt; text-align: right; width: 120mm; {!! isset($fontFamilySettings['back_date_text']) ? 'font-family: '.$fontFamilySettings['back_date_text'].'; ' : '' !!}{!! isset($boldSettings['back_date_text']) ? ($boldSettings['back_date_text'] ? 'font-weight: bold; ' : 'font-weight: normal; ') : '' !!}{!! isset($italicSettings['back_date_text']) ? ($italicSettings['back_date_text'] ? 'font-style: italic; ' : 'font-style: normal; ') : '' !!}{!! isset($textAlignSettings['back_date_text']) ? 'text-align: '.$textAlignSettings['back_date_text'].'; ' : '' !!}{!! isset($colorSettings['back_date_text']) ? 'color: '.$colorSettings['back_date_text'].'; ' : '' !!}{!! isset($underlineSettings['back_date_text']) && $underlineSettings['back_date_text'] ? 'text-decoration: underline; ' : '' !!}">
             <div style="margin-bottom: 0.5rem;">Jakarta, {{ \Carbon\Carbon::parse($certificate->issue_date)->locale('id')->translatedFormat('d F Y') }}</div>
             <div>Atas Nama Badan Nasional Sertifikasi Profesi</div>
-            <div class="font-italic">On Behalf of Indonesia Professional Certification Authority</div>
-            <div class="font-bold">Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten</div>
-            <div class="font-italic">Competent Indonesian Softskill Professional Certification Body</div>
+            <div style="font-style: italic;">On Behalf of Indonesia Professional Certification Authority</div>
+            <div style="font-weight: bold;">Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten</div>
+            <div style="font-style: italic;">Competent Indonesian Softskill Professional Certification Body</div>
         </div>
 
-        <div id="back_photo" data-label="Kotak Foto 3x4" class="abs-text editable-element" style="left: {{ $xSettings['back_photo'] ?? '35' }}mm; top: {{ $cleanSettings['back_photo'] ?? '205' }}mm; font-size: {{ $fontSettings['back_photo'] ?? '11' }}pt;">
+        <div id="back_photo" data-label="Kotak Foto 3x4" class="abs-text editable-element" style="left: {{ $xSettings['back_photo'] ?? '35' }}mm; top: {{ $cleanSettings['back_photo'] ?? '200' }}mm; font-size: {{ $fontSettings['back_photo'] ?? '11' }}pt; {!! isset($fontFamilySettings['back_photo']) ? 'font-family: '.$fontFamilySettings['back_photo'].'; ' : '' !!}{!! isset($boldSettings['back_photo']) ? ($boldSettings['back_photo'] ? 'font-weight: bold; ' : 'font-weight: normal; ') : '' !!}{!! isset($italicSettings['back_photo']) ? ($italicSettings['back_photo'] ? 'font-style: italic; ' : 'font-style: normal; ') : '' !!}{!! isset($textAlignSettings['back_photo']) ? 'text-align: '.$textAlignSettings['back_photo'].'; ' : '' !!}{!! isset($colorSettings['back_photo']) ? 'color: '.$colorSettings['back_photo'].'; ' : '' !!}{!! isset($underlineSettings['back_photo']) && $underlineSettings['back_photo'] ? 'text-decoration: underline; ' : '' !!}">
             <div class="photo-box">
                 <span>FOTO</span>
                 <span style="margin-top: 0.5rem;">3X4</span>
             </div>
         </div>
 
-        <div id="back_holder_signature" data-label="Tanda Tangan Pemilik" class="abs-text editable-element" style="left: {{ $xSettings['back_holder_signature'] ?? '35' }}mm; top: {{ $cleanSettings['back_holder_signature'] ?? '250' }}mm; font-size: {{ $fontSettings['back_holder_signature'] ?? '11' }}pt; text-align: left;">
-            <div class="font-bold" style="text-decoration: underline; text-transform: uppercase; font-size: inherit;">{{ $certificate->participant_name }}</div>
+        <div id="back_holder_signature" data-label="Tanda Tangan Pemilik" class="abs-text editable-element" style="left: {{ $xSettings['back_holder_signature'] ?? '35' }}mm; top: {{ $cleanSettings['back_holder_signature'] ?? '245' }}mm; font-size: {{ $fontSettings['back_holder_signature'] ?? '11' }}pt; text-align: left; {!! isset($fontFamilySettings['back_holder_signature']) ? 'font-family: '.$fontFamilySettings['back_holder_signature'].'; ' : '' !!}{!! isset($boldSettings['back_holder_signature']) ? ($boldSettings['back_holder_signature'] ? 'font-weight: bold; ' : 'font-weight: normal; ') : '' !!}{!! isset($italicSettings['back_holder_signature']) ? ($italicSettings['back_holder_signature'] ? 'font-style: italic; ' : 'font-style: normal; ') : '' !!}{!! isset($textAlignSettings['back_holder_signature']) ? 'text-align: '.$textAlignSettings['back_holder_signature'].'; ' : '' !!}{!! isset($colorSettings['back_holder_signature']) ? 'color: '.$colorSettings['back_holder_signature'].'; ' : '' !!}{!! isset($underlineSettings['back_holder_signature']) && $underlineSettings['back_holder_signature'] ? 'text-decoration: underline; ' : '' !!}">
+            <div style="font-weight: bold; text-decoration: underline; text-transform: uppercase; font-size: inherit;">{{ $certificate->participant_name }}</div>
             <div style="color: #000; font-size: inherit;">Tanda tangan pemilik</div>
-            <div class="font-italic" style="color: #000; font-size: inherit;">(Signature of holder)</div>
+            <div style="font-style: italic; color: #000; font-size: inherit;">(Signature of holder)</div>
         </div>
 
-        <div id="back_manager_signature" data-label="Tanda Tangan Manajer" class="abs-text editable-element" style="left: {{ $xSettings['back_manager_signature'] ?? '135' }}mm; top: {{ $cleanSettings['back_manager_signature'] ?? '250' }}mm; font-size: {{ $fontSettings['back_manager_signature'] ?? '11' }}pt; text-align: center;">
-            <div class="font-bold" style="color: #000; font-size: inherit;">DRA. CRIANA MARDEWI, M.M.</div>
+        <div id="back_manager_signature" data-label="Tanda Tangan Manajer" class="abs-text editable-element" style="left: {{ $xSettings['back_manager_signature'] ?? '135' }}mm; top: {{ $cleanSettings['back_manager_signature'] ?? '245' }}mm; font-size: {{ $fontSettings['back_manager_signature'] ?? '11' }}pt; text-align: center; {!! isset($fontFamilySettings['back_manager_signature']) ? 'font-family: '.$fontFamilySettings['back_manager_signature'].'; ' : '' !!}{!! isset($boldSettings['back_manager_signature']) ? ($boldSettings['back_manager_signature'] ? 'font-weight: bold; ' : 'font-weight: normal; ') : '' !!}{!! isset($italicSettings['back_manager_signature']) ? ($italicSettings['back_manager_signature'] ? 'font-style: italic; ' : 'font-style: normal; ') : '' !!}{!! isset($textAlignSettings['back_manager_signature']) ? 'text-align: '.$textAlignSettings['back_manager_signature'].'; ' : '' !!}{!! isset($colorSettings['back_manager_signature']) ? 'color: '.$colorSettings['back_manager_signature'].'; ' : '' !!}{!! isset($underlineSettings['back_manager_signature']) && $underlineSettings['back_manager_signature'] ? 'text-decoration: underline; ' : '' !!}">
+            <div style="font-weight: bold; color: #000; font-size: inherit;">DRA. CRIANA MARDEWI, M.M.</div>
             <div style="color: #000; font-size: inherit;">Manajer Sertifikasi</div>
-            <div class="font-italic" style="color: #000; font-size: inherit;">(Certification Manager)</div>
+            <div style="font-style: italic; color: #000; font-size: inherit;">(Certification Manager)</div>
         </div>
     </div>
     

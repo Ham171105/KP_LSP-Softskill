@@ -1,4 +1,269 @@
-<!-- CSS for Editor Panel and Visual Enhancements -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cetak Belakang - Kepemimpinan</title>
+    <link rel="icon" type="image/png" href="http://localhost/images/logo-icon.png">
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+        body {
+            margin: 0;
+            padding: 40px 0;
+            font-family: Tahoma, sans-serif;
+            background: #525659;
+            color: #000;
+            display: flex;
+            justify-content: center;
+        }
+        .page {
+            position: relative;
+            width: 210mm;
+            height: 297mm;
+            box-sizing: border-box;
+            padding: 35mm 20mm 25mm 20mm;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            margin: 0 auto;
+            overflow: hidden;
+            background-image: url('http://localhost/images/bg_belakang.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .text-center { text-align: center; }
+        .font-bold { font-weight: bold; }
+        .font-italic { font-style: italic; }
+        
+        .header-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14pt;
+            color: #777; /* Exact gray match */
+        }
+        .header-subtitle {
+            text-align: center;
+            font-style: italic;
+            font-size: 14pt;
+            color: #777;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11pt; /* Match target size */
+            border: 1px solid #000;
+            color: #000;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px 5px; /* Reduced horizontal padding to allow text to fit */
+            vertical-align: top;
+        }
+        th {
+            background-color: transparent;
+            text-align: center;
+        }
+
+        /* 
+           FOOTER LAYOUT
+           Uses absolute positioning for the right text block so it doesn't wrap
+           and allows perfect vertical overlap with the FOTO box.
+        */
+        .footer-section {
+            margin-top: auto;
+            color: #777; /* Match gray color */
+            font-size: 11pt;
+            position: relative;
+            margin-bottom: 20mm;
+        }
+
+        .footer-text-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 75%; /* Plenty of space to prevent wrapping */
+            text-align: right;
+            line-height: 1.3;
+        }
+
+        .signature-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 80px; /* Pushes container down relative to top, effectively moving text block UP */
+        }
+
+        .signature-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .photo-box {
+            width: 30mm;
+            height: 40mm;
+            border: 1px solid #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 10pt;
+            color: #000;
+        }
+
+        .holder-signature {
+            text-align: center;
+            line-height: 1.2;
+            width: 50mm; /* Restrict width to allow wrapping */
+        }
+
+        .manager-signature {
+            text-align: center;
+            line-height: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Aligns this block to bottom */
+            white-space: nowrap;
+        }
+
+        .btn-print {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #4F46E5;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: sans-serif;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        @media print {
+            .btn-print { display: none; }
+            body { 
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact; 
+                background: #fff !important; 
+                padding: 0 !important; 
+                display: block !important; 
+            }
+            .page { 
+                box-shadow: none !important; 
+                margin: 0 !important; 
+            }
+            table { border: 1px solid #000 !important; }
+            th, td { border: 1px solid #000 !important; }
+            .photo-box { border: 1px solid #000 !important; }
+        }
+    
+        .abs-text {
+            position: absolute;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn-print" onclick="printCertificate()">Cetak Halaman Belakang</button>
+
+    <div class="page">
+        <!-- Title -->
+        <div id="back_header" data-label="Judul Daftar Unit" class="editable-element" style="left: 0mm; position: relative; top: 0mm; font-size: 14pt; ">
+            <div class="header-title" style="font-size: inherit;">Daftar Unit Kompetensi</div>
+            <div class="header-subtitle" style="font-size: inherit;">List of Unit (s) of competency</div>
+        </div>
+
+        <!-- Table -->
+        <div id="back_table" data-label="Tabel Kompetensi" class="editable-element" style="left: 0mm; position: relative; top: 0mm; font-size: 11pt; ">
+            <table style="font-size: inherit;">
+            <thead>
+                <tr>
+                    <th style="width: 5%"><span class="font-bold">No</span></th>
+                    <th style="width: 20%"><span class="font-bold">Kode Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Code</span></th>
+                    <th style="width: 75%"><span class="font-bold">Judul Unit</span><br><span style="font-style: italic; font-weight: normal;">Unit Title</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td class="text-center">P.85SOF00.003.1</td>
+                    <td>
+                        Membangun Integritas sebagai Tenaga Kerja Profesional<br>
+                        <span style="font-style: italic;">Building Integrity as a Professional Worker</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td class="text-center">P.85SOF00.008.1</td>
+                    <td>
+                        Mengembangkan Kemampuan Berinisiatif dalam Bekerja<br>
+                        <span style="font-style: italic;">Developing Initiative in the Workplace</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td class="text-center">P.85SOF00.009.1</td>
+                    <td>
+                        Mengembangkan Kemampuan Menghadapi Tantangan di Tempat Kerja<br>
+                        <span style="font-style: italic;">Developing Skills to Overcome Challenges in the Workplace</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">4</td>
+                    <td class="text-center">P.85SOF00.019.1</td>
+                    <td>
+                        Mengembangkan Kemampuan Bekerja Sama dalam Tim<br>
+                        <span style="font-style: italic;">Developing Team Collaboration Skills</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">5</td>
+                    <td class="text-center">P.85SOF00.020.1</td>
+                    <td>
+                        Mengembangkan Kemampuan Dasar dalam Memimpin Kelompok Kecil<br>
+                        <span style="font-style: italic;">Developing Foundational Skills in Leading Small Groups</span>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+
+                                <!-- Footer Section Elements (Separated) -->
+        <div id="back_date_text" data-label="Teks Tgl & Instansi" class="abs-text editable-element" style="left: 110mm; top: 175mm; font-size: 11pt; text-align: right; width: 120mm; ">
+            <div style="margin-bottom: 0.5rem;">Jakarta, 21 Februari 2026</div>
+            <div>Atas Nama Badan Nasional Sertifikasi Profesi</div>
+            <div class="font-italic">On Behalf of Indonesia Professional Certification Authority</div>
+            <div class="font-bold">Lembaga Sertifikasi Profesi Softskill Indonesia Kompeten</div>
+            <div class="font-italic">Competent Indonesian Softskill Professional Certification Body</div>
+        </div>
+
+        <div id="back_photo" data-label="Kotak Foto 3x4" class="abs-text editable-element" style="left: 35mm; top: 205mm; font-size: 11pt; ">
+            <div class="photo-box">
+                <span>FOTO</span>
+                <span style="margin-top: 0.5rem;">3X4</span>
+            </div>
+        </div>
+
+        <div id="back_holder_signature" data-label="Tanda Tangan Pemilik" class="abs-text editable-element" style="left: 35mm; top: 250mm; font-size: 11pt; text-align: left; ">
+            <div class="font-bold" style="text-decoration: underline; text-transform: uppercase; font-size: inherit;">DIAH PRANITASARI</div>
+            <div style="color: #000; font-size: inherit;">Tanda tangan pemilik</div>
+            <div class="font-italic" style="color: #000; font-size: inherit;">(Signature of holder)</div>
+        </div>
+
+        <div id="back_manager_signature" data-label="Tanda Tangan Manajer" class="abs-text editable-element" style="left: 135mm; top: 250mm; font-size: 11pt; text-align: center; ">
+            <div class="font-bold" style="color: #000; font-size: inherit;">DRA. CRIANA MARDEWI, M.M.</div>
+            <div style="color: #000; font-size: inherit;">Manajer Sertifikasi</div>
+            <div class="font-italic" style="color: #000; font-size: inherit;">(Certification Manager)</div>
+        </div>
+    </div>
+    
+    <!-- CSS for Editor Panel and Visual Enhancements -->
 <style>
     /* Editor Panel Styling */
     .editor-panel {
@@ -98,6 +363,7 @@
         border: 1px dashed transparent;
         user-select: none;
         border-radius: 4px;
+        position: relative;
     }
     
     body.editor-active .editable-element:hover {
@@ -377,13 +643,13 @@
 
 <script>
     // Backend variables
-    const serverCustomTexts = {{ \Illuminate\Support\Js::from($customTextSettings ?? []) }};
-    const serverSettings = {{ \Illuminate\Support\Js::from($settings ?? []) }};
+    const serverCustomTexts = [];
+    const serverSettings = [];
 
     // State management
     let elements = [];
     const controlsContainer = document.getElementById('controls-container');
-    const categoryId = "{{ $certificate->category_id }}";
+    const categoryId = "1";
     
     // Undo/Redo State
     let historyStack = [];
@@ -707,10 +973,6 @@
 
     function startDrag(e, el) {
         if (e.button !== 0) return;
-        
-        // ONLY allow dragging from the drag-handle to allow text selection
-        if (!e.target.closest('.drag-handle')) return;
-        
         // Exit text editing mode if dragging
         exitTextEditing();
         hideFloatingToolbar();
@@ -804,7 +1066,7 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                'X-CSRF-TOKEN': ''
             },
             body: JSON.stringify({ settings: settings })
         })
@@ -902,7 +1164,7 @@
         const id = textEditingElement.id;
         const textarea = document.getElementById(`text_${id}`);
         if (textarea) {
-            textarea.value = textEditingElement.innerHTML.replace(/<br\s*\/?>/gi, '\n');
+            textarea.value = textEditingElement.innerHTML.replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]+>/g, '');
         }
         textEditingElement.setAttribute('data-custom-text', textEditingElement.innerHTML);
         
@@ -910,14 +1172,13 @@
         captureState();
     }
 
-    // --- Double-click to enter text editing + show toolbar ---
+    // --- Double-click to enter text editing ---
     document.addEventListener('dblclick', function(e) {
         if (!document.body.classList.contains('editor-active')) return;
         const clickedEl = e.target.closest('.editable-element');
         if (clickedEl) {
             e.preventDefault();
             enterTextEditing(clickedEl);
-            showFloatingToolbar(clickedEl);
         }
     });
 
@@ -1021,11 +1282,6 @@
     }
 
     function ftToggleBold() {
-        if (window.getSelection().toString().length > 0 && document.activeElement && document.activeElement.isContentEditable) {
-            document.execCommand('bold');
-            captureState();
-            return;
-        }
         if (!ftActiveElement) return;
         const isBold = ftActiveElement.style.fontWeight === 'bold' || parseInt(ftActiveElement.style.fontWeight) >= 700;
         const newVal = !isBold;
@@ -1037,11 +1293,6 @@
     }
 
     function ftToggleItalic() {
-        if (window.getSelection().toString().length > 0 && document.activeElement && document.activeElement.isContentEditable) {
-            document.execCommand('italic');
-            captureState();
-            return;
-        }
         if (!ftActiveElement) return;
         const isItalic = ftActiveElement.style.fontStyle === 'italic';
         const newVal = !isItalic;
@@ -1053,11 +1304,6 @@
     }
 
     function ftToggleUnderline() {
-        if (window.getSelection().toString().length > 0 && document.activeElement && document.activeElement.isContentEditable) {
-            document.execCommand('underline');
-            captureState();
-            return;
-        }
         if (!ftActiveElement) return;
         const current = ftActiveElement.style.textDecoration || '';
         const hasUL = current.includes('underline');
@@ -1071,11 +1317,6 @@
     }
 
     function ftToggleStrike() {
-        if (window.getSelection().toString().length > 0 && document.activeElement && document.activeElement.isContentEditable) {
-            document.execCommand('strikeThrough');
-            captureState();
-            return;
-        }
         if (!ftActiveElement) return;
         const current = ftActiveElement.style.textDecoration || '';
         const hasLT = current.includes('line-through');
@@ -1140,17 +1381,13 @@
             // If already in text editing mode for this element, let native cursor work
             if (textEditingElement === clickedEl) return;
             
-            // Single click: only select element for dragging (no toolbar popup)
+            // Single click: select element & show toolbar (but don't enter text edit)
             elements.forEach(el => el.classList.remove('active'));
             clickedEl.classList.add('active');
             
-            // Highlight corresponding control in sidebar
-            document.querySelectorAll('.control-group').forEach(c => c.style.borderColor = '#e2e8f0');
-            const group = document.getElementById(`group_${clickedEl.id}`);
-            if (group) {
-                group.style.borderColor = '#ef4444';
-                group.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
+            setTimeout(() => {
+                if (!isDragging) showFloatingToolbar(clickedEl);
+            }, 150);
         } else {
             // Clicked outside
             exitTextEditing();
@@ -1190,3 +1427,5 @@
 
     window.onload = initControls;
 </script>
+</body>
+</html>

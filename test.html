@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { margin: 0; padding: 40px 0; background: #525659; display: flex; justify-content: center; }
+.page {
+    position: relative;
+    width: 210mm;
+    height: 297mm;
+    box-sizing: border-box;
+    padding: 35mm 20mm 25mm 20mm;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    margin: 0 auto;
+    overflow: hidden;
+}
+table { width: 100%; border: 1px solid black; }
+td { border: 1px solid black; }
+.abs-text { position: absolute; transform: translateX(-50%); }
+</style>
+</head>
+<body>
+<div class="page">
+    <div style="font-size: 14pt; text-align: center;">Daftar Unit</div>
+    <table>
+        <tr><td>1</td><td>P.85SOF00.001.1</td><td>Unit 1</td></tr>
+        <tr><td>2</td><td>P.85SOF00.004.1</td><td>Unit 2</td></tr>
+        <tr><td>3</td><td>P.85SOF00.009.1</td><td>Unit 3</td></tr>
+    </table>
+    <div class="abs-text" style="left: 110mm; top: 175mm; font-size: 11pt; text-align: right; width: 120mm; border: 1px solid red;">
+        Jakarta, 21 Feb<br>Atas Nama BNSP
+    </div>
+</div>
+</body>
+</html>
