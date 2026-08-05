@@ -119,10 +119,18 @@ class CertificateController extends Controller
             $import = new CertificatesImport($category);
             Excel::import($import, $request->file('excel_file'));
             
-            $msg = "Berhasil mengimpor sertifikat baru.";
+            $msg = "Berhasil mengimpor file.";
+            if (isset($import->updated_blankos) && $import->updated_blankos > 0) {
+                $msg .= " Terdapat " . $import->updated_blankos . " nomor blangko pada data lama yang otomatis dilengkapi.";
+            }
             if (count($import->duplicates) > 0) {
-                $msg .= " Namun, terdapat " . count($import->duplicates) . " data duplikat yang diabaikan agar tidak ganda.";
-                return redirect()->route('dashboard.category', $category)->with('error', $msg);
+                $msg .= " (Terdapat " . count($import->duplicates) . " data duplikat yang diabaikan).";
+                // Jangan jadikan error jika setidaknya ada yang terupdate/terimport
+                if ($import->updated_blankos > 0) {
+                    return redirect()->route('dashboard.category', $category)->with('success', $msg);
+                } else {
+                    return redirect()->route('dashboard.category', $category)->with('error', $msg);
+                }
             }
             
             return redirect()->route('dashboard.category', $category)->with('success', $msg);

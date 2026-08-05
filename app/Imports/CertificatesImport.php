@@ -13,6 +13,7 @@ class CertificatesImport implements ToCollection, WithHeadingRow
 {
     protected $category;
     public $duplicates = [];
+    public $updated_blankos = 0;
 
     public function __construct(Category $category)
     {
@@ -41,17 +42,23 @@ class CertificatesImport implements ToCollection, WithHeadingRow
                 $gender = null;
             }
             
-            // Check for duplicate in database
-            $isDuplicate = \App\Models\Certificate::where('category_id', $this->category->id)
+            $existingCert = \App\Models\Certificate::where('category_id', $this->category->id)
                 ->where('participant_name', $name)
-                ->exists();
+                ->first();
+                
+            $blanko = trim($row['nomor_blanko'] ?? '');
 
-            if ($isDuplicate) {
-                $this->duplicates[] = $name;
+            if ($existingCert) {
+                if (!empty($blanko) && $existingCert->blanko_number !== $blanko) {
+                    $existingCert->update(['blanko_number' => $blanko]);
+                    $this->updated_blankos++;
+                } else {
+                    $this->duplicates[] = $name;
+                }
                 continue;
             }
             
-            $blanko = trim($row['nomor_blanko'] ?? '');
+            $rawDate = $row['tanggal_asesmen'] ?? '';
             $rawDate = $row['tanggal_asesmen'] ?? '';
             
             $issueDate = date('Y-m-d'); // default

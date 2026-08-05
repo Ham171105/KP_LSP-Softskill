@@ -13,7 +13,7 @@
     <nav class="navbar">
         <div class="container">
             <a href="{{ route('dashboard') }}" class="navbar-brand">
-                <img src="{{ asset('images/logo-lsp.png') }}" alt="LSP Softskill Indonesia Kompeten" style="height: 52px; object-fit: contain;">
+                <img src="{{ asset('images/logo-lsp.png') }}" alt="LSP Softskill Indonesia Kompeten" style="height: 55px; transform: scale(2.4); transform-origin: left center; object-fit: contain;">
             </a>
             <div class="navbar-end">
                 <a href="{{ route('tutorial') }}" class="btn btn-outline btn-sm" style="margin-right: 1rem; display: flex; align-items: center; gap: 0.35rem; color: var(--primary); border-color: rgba(99, 102, 241, 0.3); background: var(--primary-light);">

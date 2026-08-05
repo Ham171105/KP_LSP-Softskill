@@ -419,7 +419,7 @@
                 y: parseMM(el.style.top || window.getComputedStyle(el).top),
                 x: leftVal,
                 fontSize: parsePT(el.style.fontSize || window.getComputedStyle(el).fontSize),
-                fontFamily: el.style.fontFamily || window.getComputedStyle(el).fontFamily || 'Arial',
+                fontFamily: el.style.fontFamily || window.getComputedStyle(el).fontFamily || 'Tahoma',
                 isBold: el.style.fontWeight === 'bold' || el.style.fontWeight >= 700 || el.classList.contains('font-bold'),
                 isItalic: el.style.fontStyle === 'italic' || el.classList.contains('font-italic'),
                 customText: el.getAttribute('data-custom-text') || ''
@@ -448,7 +448,11 @@
                 el.setAttribute('data-custom-text', data.customText);
                 
                 if (data.customText.trim() !== '') {
-                    el.innerHTML = data.customText.replace(/\n/g, '<br>');
+                    if (data.customText.includes('<table')) {
+                        el.innerHTML = data.customText; // Jangan ubah newline untuk HTML tabel kompleks
+                    } else {
+                        el.innerHTML = data.customText.replace(/\n/g, '<br>');
+                    }
                 } else if (el.hasAttribute('data-default-html')) {
                     el.innerHTML = el.getAttribute('data-default-html');
                 }
@@ -510,9 +514,11 @@
             <div class="control-group" id="group_${id}">
                 <label>${label}</label>
                 
+                ${id === 'back_table' ? '' : `
                 <div style="font-size: 11px; margin-bottom: 4px; color: #64748b; margin-top: 5px;">Teks (Opsional, timpa teks asli)</div>
                 <textarea id="text_${id}" rows="2" placeholder="${placeholderText}" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px; font-size: 12px; margin-bottom: 10px;"
                           onchange="updateValue('${id}', 'text', this.value)">${currentText}</textarea>
+                `}
 
                 <div style="font-size: 11px; margin-bottom: 4px; color: #64748b;">Posisi Y (Naik/Turun)</div>
                 <div class="slider-container">
@@ -786,7 +792,7 @@
         elements.forEach(el => {
             const id = el.id;
             const customTextVal = document.getElementById(`text_${id}`) ? document.getElementById(`text_${id}`).value : '';
-            const fontVal = document.getElementById(`font_${id}`) ? document.getElementById(`font_${id}`).value : 'Arial';
+            const fontVal = document.getElementById(`font_${id}`) ? document.getElementById(`font_${id}`).value : 'Tahoma';
             const boldVal = document.getElementById(`bold_${id}`) ? document.getElementById(`bold_${id}`).checked : false;
             const italicVal = document.getElementById(`italic_${id}`) ? document.getElementById(`italic_${id}`).checked : false;
             let yVal = document.getElementById(`y_${id}`)?.value;
@@ -824,7 +830,7 @@
                         y: syVal && !isNaN(syVal) ? parseMM(syVal) : null,
                         x: sxVal && !isNaN(sxVal) ? parseMM(sxVal) : null,
                         fontSize: parsePT(document.getElementById(`size_${id}`)?.value || '12'),
-                        fontFamily: document.getElementById(`font_${id}`) ? document.getElementById(`font_${id}`).value : 'Arial',
+                        fontFamily: document.getElementById(`font_${id}`) ? document.getElementById(`font_${id}`).value : 'Tahoma',
                         isBold: document.getElementById(`bold_${id}`) ? document.getElementById(`bold_${id}`).checked : false,
                         isItalic: document.getElementById(`italic_${id}`) ? document.getElementById(`italic_${id}`).checked : false,
                         customText: document.getElementById(`text_${id}`) ? document.getElementById(`text_${id}`).value : ''

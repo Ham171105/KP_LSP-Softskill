@@ -60,6 +60,7 @@
             color: #000;
         }
         th, td {
+            vertical-align: middle;
             border: 1px solid #000;
             padding: 8px 5px; /* Reduced horizontal padding to allow text to fit */
             vertical-align: top;
@@ -159,7 +160,8 @@
                 margin: 0 !important; 
             }
             table { border: 1px solid #000 !important; }
-            th, td { border: 1px solid #000 !important; }
+            th, td {
+            vertical-align: middle; border: 1px solid #000 !important; }
             .photo-box { border: 1px solid #000 !important; }
         }
     
@@ -168,6 +170,11 @@
             transform: translateX(-50%);
             white-space: nowrap;
         }
+        @media print {
+            .btn-print { display: none; }
+            .page { box-shadow: none; }
+        }
+        td { vertical-align: middle; }
     </style>
 </head>
 <body>
@@ -192,24 +199,24 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="text-center">1</td>
-                        <td class="text-center">P.85SOF00.001.1</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">P.85SOF00.001.1</td>
                         <td>
                             Membangun Konsep Diri yang Positif dalam Bekerja<br>
                             <span style="font-style: italic;">Building a Positive Self-Concept in the Workplace</span>
                         </td>
                     </tr>
                     <tr>
-                        <td class="text-center">2</td>
-                        <td class="text-center">P.85SOF00.004.1</td>
+                        <td style="text-align: center;">2</td>
+                        <td style="text-align: center;">P.85SOF00.004.1</td>
                         <td>
                             Mengembangkan Kemampuan Berpikir Kritis dalam Memecahkan Masalah dan Mencari Solusi<br>
                             <span style="font-style: italic;">Developing Critical Thinking Skills for Problem Solving and Solution Finding</span>
                         </td>
                     </tr>
                     <tr>
-                        <td class="text-center">3</td>
-                        <td class="text-center">P.85SOF00.009.1</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">P.85SOF00.009.1</td>
                         <td>
                             Mengembangkan Kemampuan Menghadapi Tantangan di Tempat Kerja<br>
                             <span style="font-style: italic;">Developing Skills to Overcome Challenges in the Workplace</span>

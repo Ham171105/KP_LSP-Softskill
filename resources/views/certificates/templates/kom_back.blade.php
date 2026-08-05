@@ -60,6 +60,7 @@
             color: #000;
         }
         th, td {
+            vertical-align: middle;
             border: 1px solid #000;
             padding: 8px 5px; /* Reduced horizontal padding to allow text to fit */
             vertical-align: top;
@@ -159,7 +160,8 @@
                 margin: 0 !important; 
             }
             table { border: 1px solid #000 !important; }
-            th, td { border: 1px solid #000 !important; }
+            th, td {
+            vertical-align: middle; border: 1px solid #000 !important; }
             .photo-box { border: 1px solid #000 !important; }
         }
     
@@ -168,6 +170,11 @@
             transform: translateX(-50%);
             white-space: nowrap;
         }
+        @media print {
+            .btn-print { display: none; }
+            .page { box-shadow: none; }
+        }
+        td { vertical-align: middle; }
     </style>
 </head>
 <body>
@@ -192,40 +199,40 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">P.85SOF00.001.1</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">P.85SOF00.001.1</td>
                     <td>
                         Membangun Konsep Diri yang Positif dalam Bekerja<br>
                         <span style="font-style: italic;">Building a Positive Self-Concept at Work</span>
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center">2</td>
-                    <td class="text-center">P.85SOF00.010.1</td>
+                    <td style="text-align: center;">2</td>
+                    <td style="text-align: center;">P.85SOF00.010.1</td>
                     <td>
                         Membangun Kemampuan dalam Pengelolaan Emosi<br>
                         <span style="font-style: italic;">Developing Emotional Management Skills</span>
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center">3</td>
-                    <td class="text-center">P.85SOF00.014.1</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">P.85SOF00.014.1</td>
                     <td>
                         Meningkatkan Kualitas Penampilan Prima<br>
                         <span style="font-style: italic;">Enhancing Professional Presence and Presentation</span>
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center">4</td>
-                    <td class="text-center">P.85SOF00.017.1</td>
+                    <td style="text-align: center;">4</td>
+                    <td style="text-align: center;">P.85SOF00.017.1</td>
                     <td>
                         Membangun Kemampuan Komunikasi yang Efektif<br>
                         <span style="font-style: italic;">Building Effective Communication Skills</span>
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center">5</td>
-                    <td class="text-center">P.85SOF00.019.1</td>
+                    <td style="text-align: center;">5</td>
+                    <td style="text-align: center;">P.85SOF00.019.1</td>
                     <td>
                         Mengembangkan Kemampuan Bekerja Sama dalam Tim<br>
                         <span style="font-style: italic;">Developing Team Collaboration Skills</span>

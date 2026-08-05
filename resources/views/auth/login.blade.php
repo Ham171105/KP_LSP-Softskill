@@ -4,7 +4,7 @@
 <div class="auth-wrapper">
     <div class="auth-card animate-fade-in" style="padding: 3rem 2.5rem;">
         <div style="text-align: center; margin-bottom: 2rem;">
-            <img src="{{ asset('images/logo-lsp.png') }}" alt="LSP Softskill Indonesia Kompeten" style="height: 90px; object-fit: contain; margin-bottom: 1.25rem;">
+            <img src="{{ asset('images/logo-lsp.png') }}" alt="LSP Softskill Indonesia Kompeten" style="height: 60px; transform: scale(3.5); object-fit: contain; margin-bottom: 2.5rem;">
             <h1 style="font-size: 1.75rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.03em; margin: 0;">Selamat Datang</h1>
         </div>
 

@@ -71,7 +71,7 @@
 
                 <div class="form-group">
                     <label class="form-label">Nomor Blanko</label>
-                    <input type="text" name="blanko_number" class="form-control" placeholder="Opsional (Otomatis: {{ $nextBlankoNumber ?? '' }})" value="{{ old('blanko_number', $nextBlankoNumber ?? '') }}">
+                    <input type="text" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');" name="blanko_number" class="form-control" placeholder="Opsional (Otomatis: {{ $nextBlankoNumber ?? '' }})" value="{{ old('blanko_number', $nextBlankoNumber ?? '') }}">
                 </div>
 
                 <div class="form-group">
@@ -320,7 +320,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Nomor Blanko</label>
-                <input type="text" id="edit-blanko-number" name="blanko_number" class="form-control" placeholder="Opsional" style="font-family: monospace;">
+                <input type="text" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');" id="edit-blanko-number" name="blanko_number" class="form-control" placeholder="Opsional" style="font-family: monospace;">
             </div>
             <div class="form-group">
                 <label class="form-label">Tanggal Terbit</label>
