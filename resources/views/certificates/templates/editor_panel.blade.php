@@ -789,10 +789,12 @@
             const fontVal = document.getElementById(`font_${id}`) ? document.getElementById(`font_${id}`).value : 'Arial';
             const boldVal = document.getElementById(`bold_${id}`) ? document.getElementById(`bold_${id}`).checked : false;
             const italicVal = document.getElementById(`italic_${id}`) ? document.getElementById(`italic_${id}`).checked : false;
+            let yVal = document.getElementById(`y_${id}`)?.value;
+            let xVal = document.getElementById(`x_${id}`)?.value;
             settings[id] = {
-                y: document.getElementById(`y_${id}`).value + 'mm',
-                x: document.getElementById(`x_${id}`).value + 'mm',
-                fontSize: document.getElementById(`size_${id}`).value + 'pt',
+                y: yVal && !isNaN(yVal) ? yVal + 'mm' : null,
+                x: xVal && !isNaN(xVal) ? xVal + 'mm' : null,
+                fontSize: (document.getElementById(`size_${id}`)?.value || '12') + 'pt',
                 fontFamily: fontVal,
                 isBold: boldVal,
                 isItalic: italicVal,
@@ -816,10 +818,12 @@
                 
                 elements.forEach(el => {
                     const id = el.id;
+                    let syVal = document.getElementById(`y_${id}`)?.value;
+                    let sxVal = document.getElementById(`x_${id}`)?.value;
                     serverSavedState[id] = {
-                        y: parseMM(document.getElementById(`y_${id}`).value),
-                        x: parseMM(document.getElementById(`x_${id}`).value),
-                        fontSize: parsePT(document.getElementById(`size_${id}`).value),
+                        y: syVal && !isNaN(syVal) ? parseMM(syVal) : null,
+                        x: sxVal && !isNaN(sxVal) ? parseMM(sxVal) : null,
+                        fontSize: parsePT(document.getElementById(`size_${id}`)?.value || '12'),
                         fontFamily: document.getElementById(`font_${id}`) ? document.getElementById(`font_${id}`).value : 'Arial',
                         isBold: document.getElementById(`bold_${id}`) ? document.getElementById(`bold_${id}`).checked : false,
                         isItalic: document.getElementById(`italic_${id}`) ? document.getElementById(`italic_${id}`).checked : false,

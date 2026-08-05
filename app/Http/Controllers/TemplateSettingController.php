@@ -10,6 +10,7 @@ class TemplateSettingController extends Controller
 {
     public function store(Request $request, Category $category)
     {
+        \Log::info('Template settings payload: ', $request->all());
         $settings = $request->input('settings', []);
         
         $allCategories = \App\Models\Category::all();
@@ -48,9 +49,9 @@ class TemplateSettingController extends Controller
                             'element' => $elementId
                         ],
                         [
-                            // Preserve existing positions if they exist, otherwise null (fallback to blade default)
-                            'x_position' => $existing ? $existing->x_position : null,
-                            'y_position' => $existing ? $existing->y_position : null,
+                            // Preserve existing positions if they exist, otherwise fallback to null to keep default flow
+                            'x_position' => $existing ? $existing->x_position : ($data['x'] ?? null),
+                            'y_position' => $existing ? $existing->y_position : ($data['y'] ?? null),
                             'font_size' => $data['fontSize'] ?? null,
                             'font_family' => $data['fontFamily'] ?? null,
                             'is_bold' => $data['isBold'] ?? false,
